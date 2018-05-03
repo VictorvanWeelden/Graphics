@@ -45,14 +45,15 @@ class Game
                 }
             }
 	*/}
+
+
 	// tick: renders one frame
 	public void Tick()
 	{
         //int location = x + y * width;
         //int pixel = screen.pixels[location];
-            screen.Clear(CreateColor(255, 10, 10));
-            i = i  + 0.03 * Math.Sin(j = j - 0.03) - 0.03;
-            
+            screen.Clear(CreateColor(0, 0, 0));
+            i = i + 0.03;
         }
 
         public void RenderGl()

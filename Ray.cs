@@ -8,9 +8,14 @@ namespace template
 {
     class Ray
     {
-        public Ray()
-        {
+        V3 O;
+        V3 D;
+        float t;
 
+        public Ray(V3 o, V3 d, float t)
+        {
+            O = o;
+            D = d;
         }
     }
 }

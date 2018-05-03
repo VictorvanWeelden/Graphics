@@ -175,6 +175,14 @@ class V3 : IEquatable<V3>
         return result;
     }*/
 
+    public void Normalize()
+    {
+        float val = 1.0f / (float)Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
+        X *= val;
+        Y *= val;
+        Z *= val;
+    }
+
     public static V3 Multiply(V3 value1, V3 value2)
     {
         value1.X *= value2.X;
