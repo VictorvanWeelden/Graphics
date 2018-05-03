@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Text;
-using System.Drawing;
-using System.Globalization;
 
 public class V2 :IEquatable<V2>
 {
@@ -56,6 +53,7 @@ public class V2 :IEquatable<V2>
         float v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
         return (float)Math.Sqrt((v1 * v1) + (v2 * v2));
     }
+
     public static float DistanceSquared(V2 value1, V2 value2)
     {
         float v1 = value1.X - value2.X, v2 = value1.Y - value2.Y;
