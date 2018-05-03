@@ -204,12 +204,6 @@ class V3 : IEquatable<V3>
         return value1;
     }
 
-    public static V3 operator -(V3 value)
-    {
-        value = new V3(-value.X, -value.Y, -value.Z);
-        return value;
-    }
-
     public static V3 operator -(V3 value1, V3 value2)
     {
         value1.X -= value2.X;
