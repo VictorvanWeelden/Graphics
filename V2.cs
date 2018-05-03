@@ -12,14 +12,14 @@ public class V2 :IEquatable<V2>
 
     public V2(float x, float y)
 	{
-        this.X = x;
-        this.Y = y;
+        X = x;
+        Y = y;
 	}
 
     public V2(float value)
     {
-        this.X = value;
-        this.Y = value;
+        X = value;
+        Y = value;
     }
     public static V2 Zero
     {
@@ -95,7 +95,7 @@ public class V2 :IEquatable<V2>
         return (X == other.X) && (Y == other.Y);
     }
 
-  /*  public static V2 Reflect(V2 vector, V2 normal)
+    /*  public static V2 Reflect(V2 vector, V2 normal)
     {
         V2 result;
         float val = 2.0f * ((vector.X * normal.X) + (vector.Y * normal.Y));
@@ -122,13 +122,13 @@ public class V2 :IEquatable<V2>
     public static V2 Max(V2 value1, V2 value2)
     {
         return new V2(value1.X > value2.X ? value1.X : value2.X,
-                           value1.Y > value2.Y ? value1.Y : value2.Y);
+                            value1.Y > value2.Y ? value1.Y : value2.Y);
     }
 
     public static V2 Min(V2 value1, V2 value2)
     {
         return new V2(value1.X < value2.X ? value1.X : value2.X,
-                           value1.Y < value2.Y ? value1.Y : value2.Y);
+                            value1.Y < value2.Y ? value1.Y : value2.Y);
     }
 
     public static V2 Multiply(V2 value1, V2 value2)

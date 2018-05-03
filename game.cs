@@ -12,6 +12,7 @@ class Game
        // float[,] h;
         double i = 0, j = 0;
         
+        
         int x, y;
         int e = 250;
         int f = 210;

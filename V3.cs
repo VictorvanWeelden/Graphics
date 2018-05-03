@@ -1,5 +1,6 @@
 ﻿using System;
 
+
 class V3 : IEquatable<V3>
 {
 
@@ -21,23 +22,23 @@ class V3 : IEquatable<V3>
 
     public V3(float x, float y, float z)
     {
-        this.X = x;
-        this.Y = y;
-        this.Z = z;
+        X = x;
+        Y = y;
+        Z = z;
     }
 
     public V3(float value)
     {
-        this.X = value;
-        this.Y = value;
-        this.Z = value;
+        X = value;
+        Y = value;
+        Z = value;
     }
 
     public V3(V2 value, float z)
     {
-        this.X = value.X;
-        this.Y = value.Y;
-        this.Z = z;
+        X = value.X;
+        Y = value.Y;
+        Z = z;
     }
 
     public static V3 Zero
@@ -103,20 +104,20 @@ class V3 : IEquatable<V3>
         return value1;
     }
 
-    /*  public static float Distance(V3 vector1, V3 vector2)
+        public static float Distance(V3 vector1, V3 vector2)
     {
-        float result;
-        result = vector1.X * vector1.Y + vector1 (vector1, ref vector2, out result);
+        float v1 = vector1.X - vector2.X, v2 = vector1.Y - vector2.Y, v3 = vector1.Z - vector2.Z;
+        float result = (v1 * v1) + (v2 * v2) + (v3 * v3);
         return (float)Math.Sqrt(result);
     }
-
-    public static float DistanceSquared(V3 value1, V3 value2)
+    
+    public static float DistanceSquared(V3 vector1, V3 vector2)
     {
-        float result;
-        DistanceSquared(ref value1, ref value2, out result);
+        float v1 = vector1.X - vector2.X, v2 = vector1.Y - vector2.Y, v3 = vector1.Z - vector2.Z;
+        float result = (v1 * v1) + (v2 * v2) + (v3 * v3);
         return result;
     }
-    */
+    
     public static V3 Divide(V3 value1, V3 value2)
     {
         value1.X /= value2.X;
@@ -154,19 +155,25 @@ class V3 : IEquatable<V3>
         return (int)(this.X + this.Y + this.Z);
     }
 
-    /* public float Length()
+        public float Length()
         {
-            float result;
-            DistanceSquared(ref this, ref zero, out result);
-            return (float)Math.Sqrt(result);
+            return (float)Math.Sqrt((X * X) + (Y * Y) + (Z * Z));
         }
 
         public float LengthSquared()
         {
-            float result;
-            DistanceSquared(ref this, ref zero, out result);
+            float result = ((X * X) + (Y * Y) + (Z * Z));
             return result;
-        }*/
+        }
+    /* public static V3 Reflect(V3 vector, V3 normal)
+    {
+        V3 result;
+        float val = 2.0f * ((vector.X * normal.X) + (vector.Y * normal.Y) + (vector.Z * normal.Z));
+        result.X = vector.X - (normal.X * val);
+        result.Y = vector.Y - (normal.Y * val);
+        result.Z = vector.Z - (normal.Z * val);
+        return result;
+    }*/
 
     public static V3 Multiply(V3 value1, V3 value2)
     {
