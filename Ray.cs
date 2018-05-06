@@ -10,12 +10,13 @@ namespace template
     {
         V3 O;
         V3 D;
-        float t;
+        float T;
 
         public Ray(V3 o, V3 d, float t)
         {
             O = o;
             D = d;
+            T = t;
         }
     }
 }
