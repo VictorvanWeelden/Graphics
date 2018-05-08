@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-class V3 : IEquatable<V3>
+public class V3 : IEquatable<V3>
 {
 
     public float X;
@@ -266,5 +266,10 @@ class V3 : IEquatable<V3>
         value.Y *= factor;
         value.Z *= factor;
         return value;
+    }
+
+    public float dot(V3 a, V3 b)
+    {
+        return a.X * b.X + a.Y * b.Y + a.Z * b.Z;
     }
 }

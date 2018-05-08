@@ -46,8 +46,7 @@ class Game
 	{
             screen.Clear(CreateColor(0, 0, 0));
             RenderGl();
-
-            screen.Line(100, 100, 200, 200, 0xffffff);
+            
     }
 
        /* public void RenderGl()

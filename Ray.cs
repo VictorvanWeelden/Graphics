@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace template
 {
-    class Ray
+    public class Ray
     {
-        V3 O;
-        V3 D;
-        float T;
+        public V3 O;
+        public V3 D;
+        public float T;
 
         public Ray(V3 o, V3 d, float t)
         {

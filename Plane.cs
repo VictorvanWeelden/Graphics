@@ -8,5 +8,10 @@ namespace template
 {
     class Plane : Primitive
     {
+        float lb;
+        float rb;
+        float lo;
+
+       // public Plane(V3 linksboven, V3)
     }
 }
