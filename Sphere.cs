@@ -11,7 +11,7 @@ namespace template
         float radius;
         V3 positie;
 
-        public Sphere(float r, V3 p) //creat sphere
+        public Sphere(float r, V3 p) //create sphere
         {
             radius = r;
             positie = p;
