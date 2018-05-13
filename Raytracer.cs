@@ -10,12 +10,12 @@ namespace template
     {
         V3 cameraPosition = new V3(0, 0, 0);
         V3 cameraRichting = new V3(0, 0, 1);
+        Ray ray = new Ray(new V3(0), new V3(0,0,1), 1);
 
         public Raytracer()
         {
             Scene scene = new Scene();
-            Camera camera = new Camera(cameraPosition, cameraRichting);
-            Ray ray = new Ray(cameraPosition, cameraRichting, 1);
+            Camera camera = new Camera(cameraPosition, cameraRichting);          
         }
 
         public void Render()
