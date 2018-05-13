@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace template
 {
-    class Sphere : Primitive
+    public class Sphere : Primitive
     {
         float radius;
         V3 positie;

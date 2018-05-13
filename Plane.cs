@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace template
 {
-    class Plane : Primitive
+    public class Plane : Primitive
     {
         V3 lb;
         V3 rb;
