@@ -10,13 +10,15 @@ namespace template
         V3 n;
         V3 p;
         float d;
+        V3 kleur;
 
-        public Plane(V3 linksboven, V3 rechtsboven, V3 linksonder, float D)
+        public Plane(V3 linksboven, V3 rechtsboven, V3 linksonder, float D, V3 k)
         {
             lb = linksboven;
             rb = rechtsboven;
             lo = linksonder;
             d = D;
+            kleur = k;
         }
 
         void PlaneIntersect(Ray ray)

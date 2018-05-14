@@ -6,11 +6,13 @@ namespace template
     {
         float radius;
         V3 positie;
+        V3 kleur;
 
-        public Sphere(float r, V3 p) //create sphere
+        public Sphere(float r, V3 p, V3 k) //create sphere
         {
             radius = r;
             positie = p;
+            kleur = k;
         }
 
         void SphereIntersect(Ray ray)
