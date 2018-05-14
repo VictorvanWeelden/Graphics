@@ -14,7 +14,7 @@ namespace template
         {
             position = new V3(0, 0, 0);
             richting = new V3(0, 0, 1);
-            Plane scherm = new Plane(new V3(0), new V3(2,0,0), new V3(0,2,0), 3);
+            Plane scherm = new Plane(new V3(0), new V3(2,0,0), new V3(0,2,0), 3, new V3(0,0,0));
         }
 
         public float Screencentre()
