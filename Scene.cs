@@ -19,7 +19,7 @@ namespace template
         {
             Light light = new Light(lightPositie, lightKleur);
             Sphere sphere = new Sphere(3, sphereVector);
-            Plane plane = new Plane();
+            //Plane plane = new Plane(); //hier moeten wel variabelen in
    
         }
 

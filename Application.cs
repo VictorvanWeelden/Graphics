@@ -8,5 +8,11 @@ namespace template
 {
     class Application
     {
+        Raytracer raytracer = new Raytracer();
+
+        public Application()
+        {
+            raytracer.Render();
+        }
     }
 }
