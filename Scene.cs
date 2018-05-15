@@ -3,38 +3,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK;
 
 namespace template
 {
-    class Scene
+    public class Scene
     {
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
-        V3 lightPositie = new V3(-1f, 0f, 0f);
-        V3 lightKleur = new V3(1f, 1f, 0.1f);
-        V3 sphere1Positie = new V3(3f, 0f, 3f);
-        V3 sphere2Positie = new V3(5f, 0f, 3f);
-        V3 sphere3Positie = new V3(8f, 0f, 3f);
-        V3 kleur1 = new V3(0.1f, 0.1f, 1f);
-        V3 kleur2 = new V3(0.5f, 0.5f, 0.1f);
-        V3 kleur3 = new V3(1f, 0.1f, 0.1f);
-        V3 kleur4 = new V3(1f, 0.1f, 0.1f);
+        Vector3 lightPositie = new Vector3(-1f, 0f, 0f);
+        Vector3 lightKleur = new Vector3(1f, 1f, 0.1f);
+        Vector3 sphere1Positie = new Vector3(3f, 0f, 3f);
+        Vector3 sphere2Positie = new Vector3(5f, 0f, 3f);
+        Vector3 sphere3Positie = new Vector3(8f, 0f, 3f);
+        Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
+        Vector3 kleur2 = new Vector3(0.5f, 0.5f, 0.1f);
+        Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
+        Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
+        public float intersectDist = 100;
+        public Material material;
+        public Vector3 intersection;
+        public Vector3 normal;
+        public Light light;
+       
         int radius = 1;
+        List<Primitive> primitieven;
 
         public Scene()
         {
-            Light light = new Light(lightPositie, lightKleur);
-            Sphere sphere1 = new Sphere(radius, sphere1Positie, kleur1);
-            Sphere sphere2 = new Sphere(radius, sphere2Positie, kleur2);
-            Sphere sphere3 = new Sphere(radius, sphere3Positie, kleur3);
-            Plane plane = new Plane(new V3(0,-1,0), new V3(10,-1,0), new V3(0,-1,10), 1, kleur4); //Ik snap niet echt wat D hier moet zijn, kloppen de hoeken zo?
+            light = new Light(lightPositie, lightKleur);
+            Sphere sphere1 = new Sphere(radius, sphere1Positie);
+            sphere1.material = new Material(kleur1);
+            Sphere sphere2 = new Sphere(radius, sphere2Positie);
+            sphere2.material = new Material(kleur2);
+            Sphere sphere3 = new Sphere(radius, sphere3Positie);
+            sphere3.material = new Material(kleur3);
+            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1);
+            plane.material = new Material(kleur4);
+            primitieven.Add(sphere1);
+            primitieven.Add(sphere2);
+            primitieven.Add(sphere3);
+            primitieven.Add(plane);
    
         }
 
-        public void IntersectMethod()
-        {
 
+        public void IntersectMethod(Ray ray)
+        {
+            
+            foreach (Primitive p in primitieven )
+            {
+                p.Intersect(ray);
+                
+                if(ray.T < intersectDist)
+                {
+                    intersectDist = ray.T;
+                    material = p.material;
+                    intersection = ray.T * ray.D;
+                    normal = p.normal;
+                }
+            }
+            
         }
     }
 }

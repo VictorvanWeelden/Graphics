@@ -1,4 +1,5 @@
 ﻿using System;
+using OpenTK;
 
 
 public class V3 : IEquatable<V3>
@@ -135,7 +136,7 @@ public class V3 : IEquatable<V3>
         return value1;
     }
 
-    public static float Dot(V3 vector1, V3 vector2)
+    public static float Dot(Vector3 vector1, Vector3 vector2)
     {
         return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
     }

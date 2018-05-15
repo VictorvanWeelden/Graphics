@@ -7,16 +7,11 @@ using OpenTK;
 
 namespace template
 {
-    public class Ray
+    public class Material
     {
-        public Vector3 O;
-        public Vector3 D;
-        public float T;
-        
-        public Ray(Vector3 o, Vector3 d)
+        public Material(Vector3 k)
         {
-            O = o;
-            D = d;
+            Vector3 kleur = k;
         }
     }
 }

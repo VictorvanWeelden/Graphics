@@ -1,31 +1,35 @@
 ﻿using System;
+using OpenTK;
 
 namespace template
 {
     public class Plane : Primitive
     {
-        V3 lb;
-        V3 rb;
-        V3 lo;
-        V3 n;
-        V3 p;
+        Vector3 lb;
+        Vector3 rb;
+        Vector3 lo;
+        Vector3 n;
+        Vector3 p;
         float d;
-        V3 kleur;
+        Material material;
 
-        public Plane(V3 linksboven, V3 rechtsboven, V3 linksonder, float D, V3 k)
+        public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D)
         {
             lb = linksboven;
             rb = rechtsboven;
             lo = linksonder;
             d = D;
-            kleur = k;
+            material = base.material;
         }
 
-        void PlaneIntersect(Ray ray)
+        public override void Intersect(Ray ray)
         {
-            n = new V3(lb.X, rb.Y, lo.Z);
-            float t = (V3.Dot(ray.O, n) + d) / (V3.Dot(ray.D, n));
-            V3 p = ray.O + (t * ray.D);
+            base.Intersect(ray);
+            n = new Vector3(lb.X, rb.Y, lo.Z);
+            float t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
+            Vector3 p = ray.O + (t * ray.D);
+
+            normal = new Vector3(lb.X, rb.Y, lo.Z);
         }
 
     }
