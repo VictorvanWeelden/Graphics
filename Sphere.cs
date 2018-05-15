@@ -8,11 +8,11 @@ namespace template
         Vector3 positie;
         Material materiaal;
 
-        public Sphere(float r, Vector3 p) //create sphere
+        public Sphere(float r, Vector3 p, Material m) //create sphere
         {
             radius = r;
             positie = p;
-            materiaal = base.material;
+            materiaal = m;
         }
 
         public static float Dot(Vector3 vector1, Vector3 vector2)

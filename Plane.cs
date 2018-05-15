@@ -13,13 +13,13 @@ namespace template
         float d;
         Material material;
 
-        public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D)
+        public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
         {
             lb = linksboven;
             rb = rechtsboven;
             lo = linksonder;
             d = D;
-            material = base.material;
+            material = m;
         }
 
         public override void Intersect(Ray ray)

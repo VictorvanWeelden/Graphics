@@ -14,9 +14,9 @@ namespace template
 
         Vector3 lightPositie = new Vector3(-1f, 0f, 0f);
         Vector3 lightKleur = new Vector3(1f, 1f, 0.1f);
-        Vector3 sphere1Positie = new Vector3(3f, 0f, 3f);
-        Vector3 sphere2Positie = new Vector3(5f, 0f, 3f);
-        Vector3 sphere3Positie = new Vector3(8f, 0f, 3f);
+        Vector3 sphere1Positie = new Vector3(-3f, 0f, 8f);
+        Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
+        Vector3 sphere3Positie = new Vector3(3f, 0f, 8f);
         Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
         Vector3 kleur2 = new Vector3(0.5f, 0.5f, 0.1f);
         Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
@@ -33,14 +33,11 @@ namespace template
         public Scene()
         {
             light = new Light(lightPositie, lightKleur);
-            Sphere sphere1 = new Sphere(radius, sphere1Positie);
-            sphere1.material = new Material(kleur1);
-            Sphere sphere2 = new Sphere(radius, sphere2Positie);
-            sphere2.material = new Material(kleur2);
-            Sphere sphere3 = new Sphere(radius, sphere3Positie);
-            sphere3.material = new Material(kleur3);
-            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1);
-            plane.material = new Material(kleur4);
+            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1));
+            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
+            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
+            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
+            primitieven = new List<Primitive>();
             primitieven.Add(sphere1);
             primitieven.Add(sphere2);
             primitieven.Add(sphere3);
