@@ -9,19 +9,19 @@ namespace template
 {
     public class Raytracer
     {
-        Vector3 cameraPosition = new Vector3(0, 0, 0);
+        public Vector3 cameraPosition = new Vector3(0, 0, 1);
         Vector3 cameraRichting = new Vector3(0, 0, 1);
         //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1);
         Scene scene = new Scene();
         float c;
         Camera camera;
         Vector3 richting;
-        Template.Surface screen = new Template.Surface(100, 100);
+        Template.Surface screen;
         
 
-        public Raytracer()
+        public Raytracer(Template.Surface screen)
         {
-            
+            this.screen = screen;
             camera = new Camera(cameraPosition, cameraRichting);
             richting = new Vector3();     
         }
@@ -54,7 +54,7 @@ namespace template
         Vector3 Trace(Ray ray)
         {
            scene.IntersectMethod(ray);
-            Vector3 I = scene.intersection;
+            Vector3 I = scene.intersection.intersectionPoint;
             Vector3 N = scene.normal;
             if(I == null)
             {

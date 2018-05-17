@@ -13,6 +13,8 @@ namespace Template
 		static int screenID;
 		static Game game;
 		static bool terminated = false;
+        public int size = 256;
+
 		protected override void OnLoad( EventArgs e )
 		{
 			// called upon app init
@@ -20,7 +22,7 @@ namespace Template
 			GL.Enable( EnableCap.Texture2D );
 			GL.Disable( EnableCap.DepthTest );
 			GL.Hint( HintTarget.PerspectiveCorrectionHint, HintMode.Nicest );
-			ClientSize = new Size(512, 256);
+			ClientSize = new Size((2*size), size);
 			game = new Game();
 			game.screen = new Surface( Width, Height );
 			Sprite.target = game.screen;

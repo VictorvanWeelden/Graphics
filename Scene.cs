@@ -23,7 +23,7 @@ namespace template
         Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
         public float intersectDist = 100;
         public Material material;
-        public Vector3 intersection;
+        public Intersection intersection;
         public Vector3 normal;
         public Light light;
        
@@ -55,10 +55,9 @@ namespace template
                 
                 if(ray.T < intersectDist)
                 {
-                    intersectDist = ray.T;
-                    material = p.material;
-                    intersection = ray.T * ray.D;
-                    normal = p.normal;
+
+                    intersection = new Intersection(p, p.normal, ray.T, p.material); //schrijft dit steeds over?
+                   
                 }
             }
             

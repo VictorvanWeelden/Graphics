@@ -7,17 +7,19 @@ using OpenTK;
 
 namespace template
 {
-    class Intersection
+    public class Intersection
         //stores the result of an intersection. Apart from the intersection distance,
         //you will at least want to store the nearest primitive, but perhaps also the normal at the intersection point.
     {
-        public Intersection(Primitive p, Vector3 n, float d)
+        public Vector3 intersectionPoint;
+
+        public Intersection(Primitive p, Vector3 n, float d, Material m)
         {
             Primitive nearestPrimitive = p;
             Vector3 normal = n;
             float distance = d;
             Material material = p.material;
-            Vector3 intersectionPoint = d * n;
+            intersectionPoint = d * n;
         }
     }
 }

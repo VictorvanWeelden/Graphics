@@ -10,6 +10,7 @@ class Game
 	// member variables
 	public Surface screen;
         public Raytracer raytracer;
+        public int size = 256;
         
 
         
@@ -26,7 +27,9 @@ class Game
 	// initialize
 	public void Init()
 	{
-            raytracer = new Raytracer();
+            screen = new Surface(2 * size, size);
+            raytracer = new Raytracer(screen);
+            
             //Map = new Surface("../../assets/heightmap.png");
             /*vertexData = new float[127* 127 * 2 * 3* 3];
             for (int y = 0; y < 128; y++)
@@ -53,25 +56,39 @@ class Game
             screen.Clear(CreateColor(0, 0, 0));
             //RenderGl();
             raytracer.Render();
-            
-    }
+            Debug();
+        }
 
-       /* public void RenderGl()
+    public void Debug()
         {
-            
-            GL.Color3(1f, 0f, 0f);
-            GL.Begin(PrimitiveType.Triangles);
-            GL.Vertex3(-0.5f, -0.5f, 0);
-            GL.Vertex3(0.5f, -0.5f, 0);
-            GL.Vertex3(-.5f, .5f, 0);
-            GL.End();
-          //  var m = Matrix4.CreatePerspectiveFieldOfView(1.6f, 1.3f, 0.1f, 1000);
-        }*/
+            screen.Plot(((int)raytracer.cameraPosition.X + (screen.width * 3 / 4)), (screen.height - (int)raytracer.cameraPosition.Z * (screen.height / 10)), 0xffffff);
+            screen.Line(((-1 * (screen.width / 20)) + (screen.width * 3 / 4)), (screen.height - 2 * (screen.height / 10)), ((1 * (screen.width / 20)) + (screen.width * 3 / 4)), (screen.height - 2 * (screen.height / 10)), 0xffffff);
+            float radius = 10;
+            for(double i = 0.0; i < 360.0; i += 0.1)
+            {
+                double hoek = i * Math.PI / 180;
+                int x = (int)(150 + radius * Math.Cos(hoek));
+                int y = (int)(150 + radius * Math.Sin(hoek));
+                screen.Plot(x, y, 0xffffff);
+            }
+        }
+
+        /* public void RenderGl()
+         {
+
+             GL.Color3(1f, 0f, 0f);
+             GL.Begin(PrimitiveType.Triangles);
+             GL.Vertex3(-0.5f, -0.5f, 0);
+             GL.Vertex3(0.5f, -0.5f, 0);
+             GL.Vertex3(-.5f, .5f, 0);
+             GL.End();
+           //  var m = Matrix4.CreatePerspectiveFieldOfView(1.6f, 1.3f, 0.1f, 1000);
+         }*/
         /*void RenderGl()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 127 * 127 * 2 * 3);
         }*/
-}
+    }
 
 }
