@@ -7,7 +7,7 @@ using OpenTK;
 
 namespace template
 {
-    class Raytracer
+    public class Raytracer
     {
         Vector3 cameraPosition = new Vector3(0, 0, 0);
         Vector3 cameraRichting = new Vector3(0, 0, 1);

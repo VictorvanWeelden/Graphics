@@ -6,9 +6,8 @@ namespace template
 {
     public class Camera
     {
-        float x = 0;
-        float y = 0;
-        float z = 0;
+        public Vector3 pos;
+        public Vector3 direction;
         public float width = 256;
         public float height = 256;
         public Vector3 P0 = new Vector3(-1, 1, 1);
@@ -19,8 +18,8 @@ namespace template
 
         public Camera(Vector3 position, Vector3 richting)
         {
-            position = new Vector3 (0, 0, 0);
-            richting = new Vector3(0, 0, 1);
+            pos = position;
+            direction = richting;
             Plane scherm = new Plane(P0, P1, P2, 1, m);
             
             
@@ -28,7 +27,7 @@ namespace template
 
         public float Screencentre()
         {
-            return x;
+            return pos.X ;
         }
     }
 }

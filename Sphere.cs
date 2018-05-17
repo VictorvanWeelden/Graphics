@@ -13,6 +13,7 @@ namespace template
             radius = r;
             positie = p;
             materiaal = m;
+            base.material = materiaal;
         }
 
         public static float Dot(Vector3 vector1, Vector3 vector2)

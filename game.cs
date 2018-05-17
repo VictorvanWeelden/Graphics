@@ -1,6 +1,7 @@
 ﻿using System;
 //using System.IO;
 using OpenTK.Graphics.OpenGL;
+using template;
 
 namespace Template {
 
@@ -8,9 +9,13 @@ class Game
 {
 	// member variables
 	public Surface screen;
-        Surface Map;
-        float[] vertexData;
-        int VBO;
+        public Raytracer raytracer;
+        
+
+        
+        //Surface Map;
+        //float[] vertexData;
+        //int VBO;
 
         int CreateColor(int red, int green, int blue)
         {
@@ -21,8 +26,9 @@ class Game
 	// initialize
 	public void Init()
 	{
-            Map = new Surface("../../assets/heightmap.png");
-            vertexData = new float[127* 127 * 2 * 3* 3];
+            raytracer = new Raytracer();
+            //Map = new Surface("../../assets/heightmap.png");
+            /*vertexData = new float[127* 127 * 2 * 3* 3];
             for (int y = 0; y < 128; y++)
             {
                 for (int x = 0; x < 128; x++)
@@ -35,7 +41,7 @@ class Game
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
             GL.BufferData<float>(BufferTarget.ArrayBuffer, (IntPtr)(vertexData.Length * 4), vertexData, BufferUsageHint.StaticDraw);
             GL.EnableClientState(ArrayCap.VertexArray);
-            GL.VertexPointer(3, VertexPointerType.Float, 12, 0);
+            GL.VertexPointer(3, VertexPointerType.Float, 12, 0);*/
 
             
 	}
@@ -45,7 +51,8 @@ class Game
 	public void Tick()
 	{
             screen.Clear(CreateColor(0, 0, 0));
-            RenderGl();
+            //RenderGl();
+            raytracer.Render();
             
     }
 
@@ -60,11 +67,11 @@ class Game
             GL.End();
           //  var m = Matrix4.CreatePerspectiveFieldOfView(1.6f, 1.3f, 0.1f, 1000);
         }*/
-        void RenderGl()
+        /*void RenderGl()
         {
             GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
             GL.DrawArrays(PrimitiveType.Triangles, 0, 127 * 127 * 2 * 3);
-        }
+        }*/
 }
 
 }

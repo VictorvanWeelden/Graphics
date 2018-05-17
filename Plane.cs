@@ -9,9 +9,9 @@ namespace template
         Vector3 rb;
         Vector3 lo;
         Vector3 n;
-        Vector3 p;
+        //Vector3 p;
         float d;
-        Material material;
+        Material materiaal;
 
         public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
         {
@@ -19,7 +19,8 @@ namespace template
             rb = rechtsboven;
             lo = linksonder;
             d = D;
-            material = m;
+            materiaal = m;
+            base.material = materiaal;
         }
 
         public override void Intersect(Ray ray)

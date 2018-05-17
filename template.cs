@@ -20,7 +20,7 @@ namespace Template
 			GL.Enable( EnableCap.Texture2D );
 			GL.Disable( EnableCap.DepthTest );
 			GL.Hint( HintTarget.PerspectiveCorrectionHint, HintMode.Nicest );
-			ClientSize = new Size(500, 500);
+			ClientSize = new Size(512, 256);
 			game = new Game();
 			game.screen = new Surface( Width, Height );
 			Sprite.target = game.screen;
@@ -84,6 +84,8 @@ namespace Template
 		{ 
 			// entry point
 			using (OpenTKApp app = new OpenTKApp()) { app.Run( 30.0, 0.0 ); }
+            
+
 		}
 	}
 }
