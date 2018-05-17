@@ -32,11 +32,11 @@ namespace template
 
         public Scene()
         {
-            light = new Light(lightPositie, lightKleur);
-            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1));
-            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
-            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
-            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
+            light = new Light();
+            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material());
+            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material());
+            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material());
+            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material());
             primitieven = new List<Primitive>();
             primitieven.Add(sphere1);
             primitieven.Add(sphere2);

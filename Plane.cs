@@ -20,7 +20,6 @@ namespace template
             lo = linksonder;
             d = D;
             materiaal = m;
-            base.material = materiaal;
         }
 
         public override void Intersect(Ray ray)

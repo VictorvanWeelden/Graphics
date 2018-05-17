@@ -13,7 +13,7 @@ namespace template
         public Vector3 P0 = new Vector3(-1, 1, 2);
         public Vector3 P1 = new Vector3(1, 1, 2);
         public Vector3 P2 = new Vector3(-1, -1, 1);
-        Material m = new Material(new Vector3(0, 0, 0));
+        Material m = new Material();
         public Plane scherm;
         
 
@@ -21,9 +21,7 @@ namespace template
         {
             pos = position;
             direction = richting;
-            scherm = new Plane(P0, P1, P2, 1, m);
-            
-            
+            scherm = new Plane(P0, P1, P2, 1, m);            
         }
 
         public float Screencentre()

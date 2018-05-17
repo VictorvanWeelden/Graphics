@@ -35,13 +35,6 @@ public class V3 : IEquatable<V3>
         Z = value;
     }
 
-    public V3(V2 value, float z)
-    {
-        X = value.X;
-        Y = value.Y;
-        Z = z;
-    }
-
     public static V3 Zero
     {
         get { return zero; }

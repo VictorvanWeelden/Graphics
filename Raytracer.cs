@@ -37,15 +37,13 @@ namespace template
             then visualized by plotting a pixel.*/
             
 
-            for (float i = 0; i < 256; i++)
-               
+            for (float i = 0; i < 256; i++)             
             {
                 for (float j = 0; j < 256; j++)
                 {
                     richting = (i /camera.width  * (camera.P1 - camera.P0) + j/camera.height * (camera.P2-camera.P0)) - cameraPosition;
                     Ray r = new Ray(cameraPosition, richting);
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
-
                 }
             }
 
