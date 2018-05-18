@@ -34,5 +34,10 @@ namespace template
 
             normal = ((ray.D * ray.T) - positie) / radius;
         }
+        public override void Normal(Vector3 position)
+        {
+            base.Normal(position);
+            normal = Vector3.Min(position, positie);
+        }
     }
 }

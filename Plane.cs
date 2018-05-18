@@ -31,6 +31,11 @@ namespace template
 
             normal = new Vector3(lb.X, rb.Y, lo.Z);
         }
+        public override void Normal(Vector3 position)
+        {
+            base.Normal(position);
+            normal = position;
+        }
 
     }
 }

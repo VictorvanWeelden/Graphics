@@ -13,7 +13,7 @@ namespace template
     {
         public Vector3 intersectionPoint;
 
-        public Intersection(Primitive p, Vector3 n, float d, Material m)
+        public Intersection(Primitive p, Vector3 n, float d, Material m)// dit werkt niet want het doet niks!!!!
         {
             Primitive nearestPrimitive = p;
             Vector3 normal = n;

@@ -23,12 +23,14 @@ namespace template
         Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
         public float intersectDist = 100;
         public Material material;
-        public Intersection intersection;
+        public Vector3 intersection;
         public Vector3 normal;
         public Light light;
        
         int radius = 1;
         List<Primitive> primitieven;
+        List<Vector3> [] intersecties = new List<Vector3>[3];
+        List<float>[] floats = new List<float>[2];
 
         public Scene()
         {
@@ -47,17 +49,18 @@ namespace template
 
 
         public void IntersectMethod(Ray ray)
-        {
-            
+        {           
             foreach (Primitive p in primitieven )
             {
                 p.Intersect(ray);
                 
                 if(ray.T < intersectDist)
                 {
+                    intersection = normal * ray.T;
+                    intersecties[0].Add(intersection);
+                    intersecties[1].Add(normal);
+               //     intersecties[2].Add(ray.T);
 
-                    intersection = new Intersection(p, p.normal, ray.T, p.material); //schrijft dit steeds over?
-                   
                 }
             }
             

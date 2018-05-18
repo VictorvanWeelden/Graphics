@@ -39,5 +39,10 @@ namespace template
         {
             
         }
+
+        public virtual void Normal(Vector3 position)
+        {
+
+        }
     }
 }
