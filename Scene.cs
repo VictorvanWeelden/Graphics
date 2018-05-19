@@ -9,6 +9,10 @@ namespace template
 {
     public class Scene
     {
+        public Primitive[] Objecten;
+        public Light[] lichten;
+        public Camera camera;
+             
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
@@ -53,17 +57,15 @@ namespace template
             foreach (Primitive p in primitieven )
             {
                 p.Intersect(ray);
-                
-                if(ray.T < intersectDist)
-                {
-                    intersection = normal * ray.T;
-                    intersecties[0].Add(intersection);
-                    intersecties[1].Add(normal);
-               //     intersecties[2].Add(ray.T);
-
-                }
             }
             
         }
+    }
+
+    public class Intersect
+    {
+        public Primitive Objecten;
+        public Ray ray;
+        public float afstand;
     }
 }

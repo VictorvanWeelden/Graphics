@@ -12,12 +12,11 @@ namespace template
         public Vector3 cameraPosition = new Vector3(0, 0, 1);
         Vector3 cameraRichting = new Vector3(0, 0, 1);
         //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1);
-        Scene scene = new Scene();
         float c;
         Camera camera;
         Vector3 richting;
         Template.Surface screen;
-        
+        Ray r;
 
         public Raytracer(Template.Surface screen)
         {
@@ -35,31 +34,29 @@ namespace template
             /*uses the camera to loop over the pixels of the screen plane and to
             generate a ray for each pixel, which is then used to find the nearest intersection.The result is
             then visualized by plotting a pixel.*/
-            
 
-            for (float i = 0; i < 256; i++)             
+
+            for (float i = 0; i < 256; i++)
             {
                 for (float j = 0; j < 256; j++)
                 {
-                    richting = (i /camera.width  * (camera.P1 - camera.P0) + j/camera.height * (camera.P2-camera.P0)) - cameraPosition;
-                    Ray r = new Ray(cameraPosition, richting);
+                    richting = (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition;
+                    r = new Ray(cameraPosition, richting);
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
                 }
             }
-
         }
 
         Vector3 Trace(Ray ray)
         {
-           scene.IntersectMethod(ray);
-            Vector3 I = scene.intersection.intersectionPoint;
+            scene.IntersectMethod(ray);
+            Vector3 I = scene.intersection;
             Vector3 N = scene.normal;
             if(I == null)
             {
                 return new Vector3(0, 0, 0);
             }
             return DirectIllumination(I,N)/* *material.diffuseColor*/;
-
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
@@ -79,8 +76,27 @@ namespace template
             c = a.X * b.X + a.Y * b.Y + a.Z * b.Z;
             if (c > 0)
                 return true;
-            else return false;
-                    
+            else return false;                    
         }
+
+        Scene scene = new Scene()
+        {
+            Objecten = new Primitive[]
+            {
+                new Plane(new Vector3(-1), new Vector3(1), new Vector3(0,0,0), 0, Materiaalen.Dambord),
+                new Sphere(1, new Vector3(-2, 3, 0), Materiaalen.Glansend),
+                new Sphere(1, new Vector3(0, 3, 0), Materiaalen.Glansend),
+                new Sphere(1, new Vector3(2, 3, 0), Materiaalen.Glansend),
+            },
+            lichten = new Light[]
+            {
+                new Light()
+                {
+                    positie = new Vector3(1,0,0),
+                    kleur = new Vector3(0.8f)
+                }
+            },
+            camera = new Camera(new Vector3(0), new Vector3(0, 0, 1))
+        };
     }
 }
