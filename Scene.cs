@@ -12,22 +12,22 @@ namespace template
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
-        Vector3 lightPositie = new Vector3(-1f, 0f, 0f);
-        Vector3 lightKleur = new Vector3(1f, 1f, 0.1f);
-        Vector3 sphere1Positie = new Vector3(-3f, 0f, 8f);
-        Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
-        Vector3 sphere3Positie = new Vector3(3f, 0f, 8f);
-        Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
-        Vector3 kleur2 = new Vector3(0.5f, 0.5f, 0.1f);
-        Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
-        Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
+        public Vector3 lightPositie = new Vector3(-1f, 0f, 0f);
+        public Vector3 lightKleur = new Vector3(1f, 1f, 0.1f);
+        public Vector3 sphere1Positie = new Vector3(-3f, 0f, 8f);
+        public Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
+        public Vector3 sphere3Positie = new Vector3(3f, 0f, 8f);
+        public Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
+        public Vector3 kleur2 = new Vector3(0.5f, 0.5f, 0.1f);
+        public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
+        public Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
         public float intersectDist = 100;
         public Material material;
         public Vector3 intersection;
         public Vector3 normal;
         public Light light;
-       
-        int radius = 1;
+
+        public int radius = 1;
         List<Primitive> primitieven;
         List<Vector3> [] intersecties = new List<Vector3>[3];
         List<float>[] floats = new List<float>[2];
