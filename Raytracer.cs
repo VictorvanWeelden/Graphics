@@ -68,7 +68,7 @@ namespace template
             if (!IsVisible(I, L, dist))
                 return new Vector3(0, 0, 0);
             float attenuation = 1 / (dist * dist);
-            return scene.light.kleur * Vector3.Dot(N, L) * attenuation;
+            return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
         }
 
         bool IsVisible(Vector3 a, Vector3 b, float d)

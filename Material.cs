@@ -13,6 +13,11 @@ namespace template
         public Func<Vector3, Vector3> Glimmend;
         public Func<Vector3, Vector3> Reflectie;
         public Func<Vector3, Vector3> Mat;
+
+        public Material(Vector3 k)
+        {
+            Vector3 kleur = k;
+        }
     }
 
     public delegate void Action<A, B, C>(A a, B b, C c);
@@ -22,14 +27,14 @@ namespace template
         public static Vector3 A = new Vector3(0.7f);
         public static Vector3 Een = new Vector3(1f);
         public static Vector3 Nul = new Vector3(0f);
-        public static Material Glansend = new Material()
+        public static Material Glansend = new Material(new Vector3(1,1,1))
         {
             Versprijding = 30,
             Reflectie = pos => Een,
             Glimmend = pos => Een,
             Mat = pos => Een
         };
-        public static Material Dambord = new Material()
+        public static Material Dambord = new Material(new Vector3(1,1,1))
         {
             Versprijding = 50,
             Mat = positie => DambordRekenenMat(positie),

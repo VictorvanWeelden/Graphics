@@ -5,7 +5,7 @@ using template;
 
 namespace Template {
 
-class Game
+public class Game
 {
 	// member variables
 	public Surface screen;
@@ -19,7 +19,7 @@ class Game
         //float[] vertexData;
         //int VBO;
 
-        int CreateColor(int red, int green, int blue)
+        public int CreateColor(int red, int green, int blue)
         {
             return (red << 16) + (green << 8) + blue;
         }
