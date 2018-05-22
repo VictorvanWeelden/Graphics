@@ -15,6 +15,9 @@ namespace template
         public Vector3 Neer = new Vector3(0, 0, 0);
         //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1);
         float c;
+        int Width = 256;
+        int Height = 256;
+        float aspectRatio;
         Camera camera;
         Vector3 richting;
         Vector3 Y = new Vector3(0, 1, 0);
@@ -23,6 +26,8 @@ namespace template
         Vector3 light_pos = new Vector3(2, 3, 1);
         Vector3 light_color = new Vector3(1, 0.4f, 0.5f);
         Scene scene;
+        float littleTotheRight;
+        float littleTotheUp;
 
         public Raytracer(Template.Surface screen)
         {
@@ -31,6 +36,7 @@ namespace template
             richting = new Vector3(0,0,0);
             Light light = new Light(light_pos, light_color);
             scene = new Scene();
+            aspectRatio = (Width / Height);
         }
 
         int CreateColor(float R, float B, float G)
@@ -46,10 +52,28 @@ namespace template
 
             camera = new Camera(cameraPosition, look_at(richting, cameraPosition), RechtsVector(Y, look_at(richting, cameraPosition)), NeerVector(RechtsVector(Y, look_at(richting, cameraPosition)), cameraRichting));
 
-            for (float i = 0; i < 256; i++)
+            for (float i = 0; i < Width; i++)
             {
-                for (float j = 0; j < 256; j++)
+                for (float j = 0; j < Height; j++)
                 {
+                    // no-anti-aliasing
+                
+                    if(Width > Height)
+                    {
+                        littleTotheRight = (i + 0.5f) / Width * aspectRatio -((Width - Height)/Height);
+                        littleTotheUp = ((Height - j)+ 0.5f)/Height;
+                    }
+                    else if(Height > Width)
+                    {
+                        littleTotheRight = (i + 0.5f)/ Width;
+                        littleTotheUp = (((Height- j) + 0.5f) / Height)/ aspectRatio - (((Height - Width)/Width)/2);
+
+                    }
+                    else
+                    {
+                        littleTotheRight = (i + 0.5f) / Width;
+                        littleTotheUp = ((Height - j) + 0.5f)/ Height;
+                    }
                     richting = (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition;
                     r = new Ray(cameraPosition, richting);
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));

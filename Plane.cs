@@ -43,8 +43,9 @@ namespace template
             float lengte = Vector3.Dot(ray_richting, normal);
             if (lengte == 0)
                 return -1;
-            float lengtee = 5;
-                return lengtee;
+            float t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
+            Vector3 p = ray.O + (t * ray.D);
+            return t;
         }
 
     }
