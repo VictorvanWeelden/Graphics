@@ -37,5 +37,15 @@ namespace template
             normal = position;
         }
 
+        float FindIntersection(Ray ray)
+        {
+            Vector3 ray_richting = ray.D;
+            float lengte = Vector3.Dot(ray_richting, normal);
+            if (lengte == 0)
+                return -1;
+            float lengtee = 5;
+                return lengtee;
+        }
+
     }
 }

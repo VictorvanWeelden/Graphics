@@ -11,19 +11,28 @@ namespace template
     {
         public Vector3 cameraPosition = new Vector3(0, 0, 1);
         Vector3 cameraRichting = new Vector3(0, 0, 1);
+        public Vector3 Rechts = new Vector3(0, 0, 0);
+        public Vector3 Neer = new Vector3(0, 0, 0);
         //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1);
         float c;
         Camera camera;
         Vector3 richting;
+        Vector3 Y = new Vector3(0, 1, 0);
         Template.Surface screen;
         Ray r;
+        Vector3 light_pos = new Vector3(2, 3, 1);
+        Vector3 light_color = new Vector3(1, 0.4f, 0.5f);
+        Scene scene;
 
         public Raytracer(Template.Surface screen)
         {
             this.screen = screen;
-            camera = new Camera(cameraPosition, cameraRichting);
-            richting = new Vector3();     
+            
+            richting = new Vector3(0,0,0);
+            Light light = new Light(light_pos, light_color);
+            scene = new Scene();
         }
+
         int CreateColor(float R, float B, float G)
         {
             return ((int)R * 255) << 16 + ((int)B * 255) << 8 + ((int)G * 255);
@@ -35,6 +44,7 @@ namespace template
             generate a ray for each pixel, which is then used to find the nearest intersection.The result is
             then visualized by plotting a pixel.*/
 
+            camera = new Camera(cameraPosition, look_at(richting, cameraPosition), RechtsVector(Y, look_at(richting, cameraPosition)), NeerVector(RechtsVector(Y, look_at(richting, cameraPosition)), cameraRichting));
 
             for (float i = 0; i < 256; i++)
             {
@@ -45,6 +55,21 @@ namespace template
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
                 }
             }
+        }
+
+        Vector3 look_at(Vector3 richting, Vector3 camera)
+        {
+            return -Vector3.Normalize(camera - richting);
+        }
+
+        Vector3 RechtsVector(Vector3 Y, Vector3 camerarichting)
+        {
+            return Vector3.Normalize(Vector3.Cross(Y, camerarichting));
+        }
+
+        Vector3 NeerVector(Vector3 Rechts, Vector3 camerarichting)
+        {
+            return Vector3.Cross(Rechts, camerarichting);
         }
 
         Vector3 Trace(Ray ray)
@@ -79,24 +104,8 @@ namespace template
             else return false;                    
         }
 
-        Scene scene = new Scene()
-        {
-            Objecten = new Primitive[]
-            {
-                new Plane(new Vector3(-1), new Vector3(1), new Vector3(0,0,0), 0, Materiaalen.Dambord),
-                new Sphere(1, new Vector3(-2, 3, 0), Materiaalen.Glansend),
-                new Sphere(1, new Vector3(0, 3, 0), Materiaalen.Glansend),
-                new Sphere(1, new Vector3(2, 3, 0), Materiaalen.Glansend),
-            },
-            lichten = new Light[]
-            {
-                new Light()
-                {
-                    positie = new Vector3(1,0,0),
-                    kleur = new Vector3(0.8f)
-                }
-            },
-            camera = new Camera(new Vector3(0), new Vector3(0, 0, 1))
-        };
+        
+        
+  
     }
 }

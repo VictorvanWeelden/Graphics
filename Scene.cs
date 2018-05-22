@@ -9,10 +9,6 @@ namespace template
 {
     public class Scene
     {
-        public Primitive[] Objecten;
-        public Light[] lichten;
-        public Camera camera;
-             
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
@@ -38,7 +34,7 @@ namespace template
 
         public Scene()
         {
-            light = new Light();
+            light = new Light(lightPositie, lightKleur);
             Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material());
             Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material());
             Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material());
