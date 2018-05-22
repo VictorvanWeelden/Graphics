@@ -16,9 +16,14 @@ class Game
         {
             return (red << 16) + (green << 8) + blue;
         }
-            
-	// initialize
-	public void Init()
+
+        int CreateColorf(float R, float B, float G)
+        {
+            return ((int)(R * 255) << 16) + ((int)(B * 255) << 8) + ((int)G * 255);
+        }
+
+        // initialize
+        public void Init()
 	{
             screen = new Surface(2 * size, size);
             raytracer = new Raytracer(screen);
