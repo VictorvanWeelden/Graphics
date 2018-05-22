@@ -75,7 +75,11 @@ namespace template
                         littleTotheUp = ((Height - j) + 0.5f)/ Height;
                     }
                     richting = (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition;
+                    littleTotheRight -= 0.5f;
+                    littleTotheUp = -0.5f;
+                    //richting = Vector3.Normalize(Vector3.Add(cameraRichting, Vector3.Multiply(littleTotheRight, Vector3.Multiply(Neer, littleTotheUp))));
                     r = new Ray(cameraPosition, richting);
+
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
                 }
             }
@@ -114,8 +118,8 @@ namespace template
             Vector3 L = l- I;
             float dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1 / dist;
-            if (!IsVisible(I, L, dist))
-                return new Vector3(0, 0, 0);
+            //if (!IsVisible(I, L, dist))
+            //    return new Vector3(0, 0, 0);
             float attenuation = 1 / (dist * dist);
             return scene.light.kleur * Vector3.Dot(N, L) * attenuation;
         }
