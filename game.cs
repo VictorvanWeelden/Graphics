@@ -10,6 +10,7 @@ class Game
 	// member variables
 	public Surface screen;
         public Raytracer raytracer;
+        public Scene scene = new Scene();
         public int size = 256;
         
 
@@ -45,12 +46,13 @@ class Game
         {
             screen.Plot(((int)raytracer.cameraPosition.X + (screen.width * 3 / 4)), (screen.height - (int)raytracer.cameraPosition.Z * (screen.height / 10)), 0xffffff);
             screen.Line(((-1 * (screen.width / 20)) + (screen.width * 3 / 4)), (screen.height - 2 * (screen.height / 10)), ((1 * (screen.width / 20)) + (screen.width * 3 / 4)), (screen.height - 2 * (screen.height / 10)), 0xffffff);
-            float radius = 30;
+            //float radius = 30;
+            float r = scene.radius;
             for(double i = 0.0; i < 360.0; i += 0.1)
             {
                 double hoek = i * Math.PI / 180;
-                int x = (int)(150 + radius * Math.Cos(hoek));
-                int y = (int)(150 + radius * Math.Sin(hoek));
+                int x = (int)(150 + r * Math.Cos(hoek));
+                int y = (int)(150 + r * Math.Sin(hoek));
                 screen.Plot(x, y, 0xffffff);
             }
         }
