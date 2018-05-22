@@ -61,7 +61,7 @@ namespace template
             {
                 return new Vector3(0, 0, 0);
             }
-            return DirectIllumination(I,N) * scene.ColorMethod(ray);
+            return DirectIllumination(I, N);// * scene.ColorMethod(ray);
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
