@@ -10,9 +10,9 @@ namespace template
         public Vector3 direction;
         public float width = 256;
         public float height = 256;
-        public Vector3 P0 = new Vector3(-1, 1, 2);
-        public Vector3 P1 = new Vector3(1, 1, 2);
-        public Vector3 P2 = new Vector3(-1, -1, 1);
+        public Vector3 P0 = new Vector3(-30, 30, 2);
+        public Vector3 P1 = new Vector3(30, 30, 2);
+        public Vector3 P2 = new Vector3(-30, -30, 2);
         Material m = new Material(new Vector3(1,1,1));
         public Plane scherm;
         

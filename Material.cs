@@ -13,10 +13,11 @@ namespace template
         public Func<Vector3, Vector3> Glimmend;
         public Func<Vector3, Vector3> Reflectie;
         public Func<Vector3, Vector3> Mat;
+        public Vector3 kleur;
 
         public Material(Vector3 k)
         {
-            Vector3 kleur = k;
+            kleur = k;
         }
     }
 

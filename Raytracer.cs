@@ -9,9 +9,9 @@ namespace template
 {
     public class Raytracer
     {
-        public Vector3 cameraPosition = new Vector3(0, 0, 0);
+        public Vector3 cameraPosition = new Vector3(0,0, 1);
         Vector3 cameraRichting = new Vector3(0, 0, 1);
-        //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1);
+        //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1)
         float c;
         Camera camera;
         Vector3 richting;
@@ -61,19 +61,23 @@ namespace template
             {
                 return new Vector3(0, 0, 0);
             }
-            return DirectIllumination(I,N)/* *material.diffuseColor*/;
+            return DirectIllumination(I,N) * scene.ColorMethod(ray);
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
         {
-            Vector3 l = scene.light.positie;
+            
+            Vector3 l = scene.lightPositie;
             Vector3 L = l- I;
             float dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1 / dist;
-            if (!IsVisible(I, L, dist))
+            if(!IsVisible(I, L, dist))
                 return new Vector3(0, 0, 0);
+            
             float attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
+            
+
         }
 
         bool IsVisible(Vector3 a, Vector3 b, float d)

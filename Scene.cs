@@ -17,7 +17,7 @@ namespace template
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
-        public Vector3 lightPositie = new Vector3(-1f, 0f, 0f);
+        public Vector3 lightPositie = new Vector3(0f, 10f, 0f);
         public Vector3 lightKleur = new Vector3(1f, 1f, 1f);
         public Vector3 sphere1Positie = new Vector3(-3f, 0f, 8f);
         public Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
@@ -81,6 +81,22 @@ namespace template
 
             }
             return normal;
+        }
+        public Vector3 ColorMethod(Ray ray)
+        {
+            Vector3 kleur = new Vector3();
+            foreach (Primitive p in primitieven)
+            {
+
+                if (p.Intersection(ray) != 0)
+                    kleur = p.material.kleur;
+                    
+                
+
+
+
+            }
+            return kleur;
         }
     }
 
