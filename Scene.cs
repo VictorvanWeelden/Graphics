@@ -49,6 +49,7 @@ namespace template
             primitieven.Add(sphere2);
             primitieven.Add(sphere3);
             primitieven.Add(plane);
+            
    
         }
 
@@ -63,8 +64,23 @@ namespace template
                  rayt = ray.T;
                 
                 
+                
             }
             return rayt;
+        }
+        public Vector3 NormalMethod(Ray ray)
+        {
+
+            foreach (Primitive p in primitieven)
+            {
+
+                p.Intersection(ray);
+                normal = p.normal;
+
+
+
+            }
+            return normal;
         }
     }
 

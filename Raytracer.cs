@@ -28,7 +28,7 @@ namespace template
         }
         int CreateColor(float R, float B, float G)
         {
-            return ((int)R * 255) << 16 + ((int)B * 255) << 8 + ((int)G * 255);
+            return ((int)(R * 255) << 16) + ((int)(B * 255) << 8) + ((int)G * 255);
         }
 
         public void Render()
@@ -56,7 +56,7 @@ namespace template
         {
             float t = scene.IntersectMethod(ray);
             Vector3 I = t*ray.D;
-            Vector3 N = scene.normal;
+            Vector3 N = scene.NormalMethod(ray);
             if(I == new Vector3(0,0,0))
             {
                 return new Vector3(0, 0, 0);
