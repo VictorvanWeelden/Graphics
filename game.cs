@@ -44,8 +44,8 @@ class Game
 
     public void Debug()
         {
-            screen.Plot(((int)raytracer.cameraPosition.X + (screen.width * 3 / 4)), (screen.height - (int)raytracer.cameraPosition.Z * (screen.height / 10)), 0xffffff);
-            screen.Line(((-1 * (screen.width / 20)) + (screen.width * 3 / 4)), (screen.height - 2 * (screen.height / 10)), ((1 * (screen.width / 20)) + (screen.width * 3 / 4)), (screen.height - 2 * (screen.height / 10)), 0xffffff);
+            screen.Plot((Xtrans((int)raytracer.cameraPosition.X)), (Ytrans((int)raytracer.cameraPosition.Z)), 0xffffff);
+            screen.Line((Xtrans(-1)), (Ytrans(2)), (Xtrans(1)), (Ytrans(2)), 0xffffff);
             //float radius = 30;
             float r = scene.radius;
             for(double i = 0.0; i < 360.0; i += 0.1)
@@ -55,6 +55,16 @@ class Game
                 int y = (int)(150 + r * Math.Sin(hoek));
                 screen.Plot(x, y, 0xffffff);
             }
+        }
+
+    public int Xtrans(int x)
+        {
+            return x * (screen.width/20) + (screen.width * 3/4);
+        }
+
+    public int Ytrans(int y)
+        {
+            return screen.height - y * (screen.height / 10);
         }
 
         /* public void RenderGl()
