@@ -9,9 +9,6 @@ namespace template
 {
     public class Scene
     {
-        public Primitive[] Objecten;
-        public Light[] lichten;
-        public Camera camera;
         public float rayt;
              
         //stores a list of primitives and light sources. It implements a scene-level Intersect
@@ -53,8 +50,7 @@ namespace template
 
 
         public float IntersectMethod(Ray ray)
-        {
-            
+        {            
             foreach (Primitive p in primitieven )
             {               
                  p.Intersection(ray);
