@@ -16,8 +16,7 @@ namespace template
         public Vector3 P1 = new Vector3(1, 1, 2);
         public Vector3 P2 = new Vector3(-1, -1, 1);
         Material m = new Material();
-        public Plane scherm;
-        
+        public Plane scherm;    
 
         public Camera(Vector3 position, Vector3 richting, Vector3 rechts, Vector3 neer)
         {
@@ -27,9 +26,6 @@ namespace template
             Neer = neer;
           //  scherm = new Plane(P0, P1, P2, 1, m);            
         }
-
-
-
 
         public float Screencentre()
         {

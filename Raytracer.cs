@@ -126,10 +126,6 @@ namespace template
             if (c > 0)
                 return true;
             else return false;                    
-        }
-
-        
-        
-  
+        } 
     }
 }
