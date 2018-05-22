@@ -3,7 +3,7 @@ using OpenTK;
 
 namespace template
 {
-    public class Primitive
+    public abstract class Primitive
     {
         Vector3 positie;
         //Vector3 kleur;
@@ -35,11 +35,8 @@ namespace template
             return (double)(a.X * b.X + a.Y + b.Y + a.Z * b.Z) / (Normal(a) * Normal(b));
         }*/
 
-        public virtual void Intersect(Ray ray)
-        {
-            if(ray.T != 0) { Console.WriteLine("Primitive"); }
-            
-        }
+        abstract public float Intersection(Ray ray);
+        
 
         public virtual void Normal(Vector3 position)
         {

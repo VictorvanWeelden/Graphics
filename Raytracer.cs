@@ -55,7 +55,6 @@ namespace template
         Vector3 Trace(Ray ray)
         {
             float t = scene.IntersectMethod(ray);
-            if (t != 0) { Console.WriteLine("Jippie");}
             Vector3 I = t*ray.D;
             Vector3 N = scene.normal;
             if(I == new Vector3(0,0,0))

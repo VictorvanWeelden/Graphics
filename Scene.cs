@@ -59,9 +59,8 @@ namespace template
             foreach (Primitive p in primitieven )
             {
                 
-                    p.Intersect(ray);
+                 p.Intersection(ray);
                  rayt = ray.T;
-                if(rayt != 0) { Console.WriteLine("yes"); }
                 
                 
             }

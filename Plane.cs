@@ -22,14 +22,15 @@ namespace template
             materiaal = m;
         }
 
-        public override void Intersect(Ray ray)
+        public override float Intersection(Ray ray)
         {
-            base.Intersect(ray);
             n = new Vector3(lb.X, rb.Y, lo.Z);
             float t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
             Vector3 p = ray.O + (t * ray.D);
 
             normal = new Vector3(lb.X, rb.Y, lo.Z);
+            ray.T = t;
+            return ray.T;
             
         }
         public override void Normal(Vector3 position)
