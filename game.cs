@@ -11,7 +11,8 @@ class Game
 	public Surface screen;
         public Raytracer raytracer;
         public int size = 256;
-        
+        public Scene scene = new Scene();
+
         int CreateColor(int red, int green, int blue)
         {
             return (red << 16) + (green << 8) + blue;
