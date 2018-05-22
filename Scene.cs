@@ -49,8 +49,6 @@ namespace template
             primitieven.Add(sphere2);
             primitieven.Add(sphere3);
             primitieven.Add(plane);
-            
-   
         }
 
 
@@ -58,13 +56,9 @@ namespace template
         {
             
             foreach (Primitive p in primitieven )
-            {
-                
+            {               
                  p.Intersection(ray);
-                 rayt = ray.T;
-                
-                
-                
+                 rayt = ray.T;   
             }
             return rayt;
         }
@@ -73,12 +67,8 @@ namespace template
 
             foreach (Primitive p in primitieven)
             {
-
                 p.Intersection(ray);
                 normal = p.normal;
-
-
-
             }
             return normal;
         }
@@ -87,14 +77,8 @@ namespace template
             Vector3 kleur = new Vector3();
             foreach (Primitive p in primitieven)
             {
-
                 if (p.Intersection(ray) != 0)
                     kleur = p.material.kleur;
-                    
-                
-
-
-
             }
             return kleur;
         }

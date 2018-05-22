@@ -18,6 +18,7 @@ namespace template
         Vector3 richtingnorm;
         Template.Surface screen;
         Ray r;
+        Scene scene;
 
         public Raytracer(Template.Surface screen)
         {
@@ -25,6 +26,7 @@ namespace template
             camera = new Camera(cameraPosition, cameraRichting);
             richting = new Vector3();
             richtingnorm = new Vector3();
+            scene = new Scene();
         }
         int CreateColor(float R, float B, float G)
         {
@@ -37,7 +39,6 @@ namespace template
             generate a ray for each pixel, which is then used to find the nearest intersection.The result is
             then visualized by plotting a pixel.*/
 
-
             for (float i = 0; i < 256; i++)
             {
                 for (float j = 0; j < 256; j++)
@@ -45,10 +46,8 @@ namespace template
                     richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
                     richtingnorm = Vector3.Multiply(richting, (1 / ((float)Math.Sqrt((richting.X * richting.X) + (richting.Y * richting.Y) + (richting.Z * richting.Z)))));
                     r = new Ray(cameraPosition, richtingnorm);
-                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
-                    
-                }
-                
+                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));                   
+                }               
             }
         }
 
@@ -76,8 +75,6 @@ namespace template
             
             float attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
-            
-
         }
 
         bool IsVisible(Vector3 a, Vector3 b, float d)
@@ -87,25 +84,5 @@ namespace template
                 return true;
             else return false;                    
         }
-
-        Scene scene = new Scene()
-        {
-            Objecten = new Primitive[]
-            {
-                new Plane(new Vector3(-1), new Vector3(1), new Vector3(0,0,0), 0, Materiaalen.Dambord),
-                new Sphere(1, new Vector3(-2, 3, 0), Materiaalen.Glansend),
-                new Sphere(1, new Vector3(0, 3, 0), Materiaalen.Glansend),
-                new Sphere(1, new Vector3(2, 3, 0), Materiaalen.Glansend),
-            },
-            lichten = new Light[]
-            {
-                new Light()
-                {
-                    positie = new Vector3(1,0,0),
-                    kleur = new Vector3(0.8f)
-                }
-            },
-            camera = new Camera(new Vector3(0), new Vector3(0, 0, 1))
-        };
     }
 }
