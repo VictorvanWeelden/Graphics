@@ -31,7 +31,7 @@ namespace template
         public Vector3 normal;
         public Light light;
        
-        public int radius = 10;
+        public int radius = 1;
         List<Primitive> primitieven;
         List<Vector3> [] intersecties = new List<Vector3>[3];
         List<float>[] floats = new List<float>[2];

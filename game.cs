@@ -47,12 +47,26 @@ class Game
             screen.Plot((Xtrans((int)raytracer.cameraPosition.X)), (Ytrans((int)raytracer.cameraPosition.Z)), 0xffffff);
             screen.Line((Xtrans(-1)), (Ytrans(2)), (Xtrans(1)), (Ytrans(2)), 0xffffff);
             //float radius = 30;
-            float r = scene.radius;
+            float r = scene.radius * (screen.height/10);
             for(double i = 0.0; i < 360.0; i += 0.1)
             {
                 double hoek = i * Math.PI / 180;
-                int x = (int)(150 + r * Math.Cos(hoek));
-                int y = (int)(150 + r * Math.Sin(hoek));
+                int x = (int)(Xtrans((int)scene.sphere1Positie.X) + r * Math.Cos(hoek));
+                int y = (int)(Ytrans((int)scene.sphere1Positie.Z) + r * Math.Sin(hoek));
+                screen.Plot(x, y, 0xffffff);
+            }
+            for (double i = 0.0; i < 360.0; i += 0.1)
+            {
+                double hoek = i * Math.PI / 180;
+                int x = (int)(Xtrans((int)scene.sphere2Positie.X) + r * Math.Cos(hoek));
+                int y = (int)(Ytrans((int)scene.sphere2Positie.Z) + r * Math.Sin(hoek));
+                screen.Plot(x, y, 0xffffff);
+            }
+            for (double i = 0.0; i < 360.0; i += 0.1)
+            {
+                double hoek = i * Math.PI / 180;
+                int x = (int)(Xtrans((int)scene.sphere3Positie.X) + r * Math.Cos(hoek));
+                int y = (int)(Ytrans((int)scene.sphere3Positie.Z) + r * Math.Sin(hoek));
                 screen.Plot(x, y, 0xffffff);
             }
         }
