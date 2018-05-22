@@ -30,6 +30,7 @@ namespace template
             Vector3 p = ray.O + (t * ray.D);
 
             normal = new Vector3(lb.X, rb.Y, lo.Z);
+            
         }
         public override void Normal(Vector3 position)
         {

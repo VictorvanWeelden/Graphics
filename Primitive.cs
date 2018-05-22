@@ -37,6 +37,7 @@ namespace template
 
         public virtual void Intersect(Ray ray)
         {
+            if(ray.T != 0) { Console.WriteLine("Primitive"); }
             
         }
 

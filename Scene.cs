@@ -12,6 +12,7 @@ namespace template
         public Primitive[] Objecten;
         public Light[] lichten;
         public Camera camera;
+        public float rayt;
              
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
@@ -52,13 +53,19 @@ namespace template
         }
 
 
-        public void IntersectMethod(Ray ray)
-        {           
+        public float IntersectMethod(Ray ray)
+        {
+            
             foreach (Primitive p in primitieven )
             {
-                p.Intersect(ray);
+                
+                    p.Intersect(ray);
+                 rayt = ray.T;
+                if(rayt != 0) { Console.WriteLine("yes"); }
+                
+                
             }
-            
+            return rayt;
         }
     }
 

@@ -9,12 +9,13 @@ namespace template
 {
     public class Raytracer
     {
-        public Vector3 cameraPosition = new Vector3(0, 0, 1);
+        public Vector3 cameraPosition = new Vector3(0, 0, 0);
         Vector3 cameraRichting = new Vector3(0, 0, 1);
         //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1);
         float c;
         Camera camera;
         Vector3 richting;
+        Vector3 richtingnorm;
         Template.Surface screen;
         Ray r;
 
@@ -22,7 +23,8 @@ namespace template
         {
             this.screen = screen;
             camera = new Camera(cameraPosition, cameraRichting);
-            richting = new Vector3();     
+            richting = new Vector3();
+            richtingnorm = new Vector3();
         }
         int CreateColor(float R, float B, float G)
         {
@@ -40,19 +42,23 @@ namespace template
             {
                 for (float j = 0; j < 256; j++)
                 {
-                    richting = (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition;
-                    r = new Ray(cameraPosition, richting);
+                    richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
+                    richtingnorm = Vector3.Multiply(richting, (1 / ((float)Math.Sqrt((richting.X * richting.X) + (richting.Y * richting.Y) + (richting.Z * richting.Z)))));
+                    r = new Ray(cameraPosition, richtingnorm);
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
+                    
                 }
+                
             }
         }
 
         Vector3 Trace(Ray ray)
         {
-            scene.IntersectMethod(ray);
-            Vector3 I = scene.intersection;
+            float t = scene.IntersectMethod(ray);
+            if (t != 0) { Console.WriteLine("Jippie");}
+            Vector3 I = t*ray.D;
             Vector3 N = scene.normal;
-            if(I == null)
+            if(I == new Vector3(0,0,0))
             {
                 return new Vector3(0, 0, 0);
             }
