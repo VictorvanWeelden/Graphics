@@ -9,24 +9,38 @@ namespace template
 {
     public class Raytracer
     {
-        public Vector3 cameraPosition = new Vector3(0,0, 1);
-        Vector3 cameraRichting = new Vector3(0, 0, 1);
-        //Ray ray = new Ray(new Vector3(0), new Vector3(0,0,1), 1)
+        public Vector3 cameraPosition = new Vector3(0, 0, 1);
+        Vector3 cameraRichting = new Vector3(0, 0, 1); // Deze waarde maakt niets uit for some reason.
         float c;
         Camera camera;
         Vector3 richting;
         Vector3 richtingnorm;
         Template.Surface screen;
         Ray r;
+        public float t;
         Scene scene;
+        public float Width;
+        public float Height;
+        public Vector3[,] opslagplaatsen;
+        Vector3 I;
+        Vector3 N;
+        Vector3 l;
+        Vector3 L;
+        float dist;
+        float attenuation;
+        Vector3 black = new Vector3(0, 0, 0);
 
-        public Raytracer(Template.Surface screen)
+        public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
             this.screen = screen;
             camera = new Camera(cameraPosition, cameraRichting);
             richting = new Vector3();
             richtingnorm = new Vector3();
-            scene = new Scene();
+            this.scene = scene;
+            Width = (float)width;
+            Height = (float)height;
+            opslagplaatsen = new Vector3[width, height];
+                 
         }
         int CreateColor(float R, float B, float G)
         {
@@ -39,26 +53,28 @@ namespace template
             generate a ray for each pixel, which is then used to find the nearest intersection.The result is
             then visualized by plotting a pixel.*/
 
-            for (float i = 0; i < 256; i++)
+            for (float i = 0; i < Width; i++)
             {
-                for (float j = 0; j < 256; j++)
+                for (float j = 0; j < Height; j++)
                 {
                     richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
                     richtingnorm = Vector3.Multiply(richting, (1 / ((float)Math.Sqrt((richting.X * richting.X) + (richting.Y * richting.Y) + (richting.Z * richting.Z)))));
                     r = new Ray(cameraPosition, richtingnorm);
-                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));                   
+                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
+                    opslagplaatsen[(int)i, (int)j] = r.D;
                 }               
             }
+            //cameraPosition.Y += .5f;
         }
 
         Vector3 Trace(Ray ray)
         {
-            float t = scene.IntersectMethod(ray);
-            Vector3 I = t*ray.D;
-            Vector3 N = scene.NormalMethod(ray);
-            if(I == new Vector3(0,0,0))
+            t = scene.IntersectMethod(ray);
+            I = t*ray.D;
+            N = scene.NormalMethod(ray);
+            if(I == black)
             {
-                return new Vector3(0, 0, 0);
+                return black;
             }
             return DirectIllumination(I, N);// * scene.ColorMethod(ray);
         }
@@ -66,21 +82,21 @@ namespace template
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
         {
             
-            Vector3 l = scene.lightPositie;
-            Vector3 L = l- I;
-            float dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
+            l = scene.lightPositie;
+            L = l- I;
+            dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1 / dist;
-            if(!IsVisible(I, L, dist))
-                return new Vector3(0, 0, 0);
+          //  if(!IsVisible(I, L, dist))
+           //     return new Vector3(0, 0, 0);
             
-            float attenuation = 1 / (dist * dist);
+            attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
         }
 
         bool IsVisible(Vector3 a, Vector3 b, float d)
         {
             c = a.X * b.X + a.Y * b.Y + a.Z * b.Z;
-            if (c > 0)
+            if (d * c > 0)
                 return true;
             else return false;                    
         }

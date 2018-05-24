@@ -13,12 +13,6 @@ public class Game
         public Scene scene = new Scene();
         public int size = 256;
         
-
-        
-        //Surface Map;
-        //float[] vertexData;
-        //int VBO;
-
         public int CreateColor(int red, int green, int blue)
         {
             return (red << 16) + (green << 8) + blue;
@@ -33,15 +27,13 @@ public class Game
         public void Init()
 	{
             screen = new Surface(2 * size, size);
-            raytracer = new Raytracer(screen);
+            raytracer = new Raytracer(screen, scene, size, size);
 	}
-
 
 	// tick: renders one frame
 	public void Tick()
 	{
             screen.Clear(CreateColor(0, 0, 0));
-            //RenderGl();
             raytracer.Render();
             Debug();
         }

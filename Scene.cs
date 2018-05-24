@@ -20,14 +20,15 @@ namespace template
         public Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
         public Vector3 sphere3Positie = new Vector3(3f, 0f, 8f);
         public Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
-        public Vector3 kleur2 = new Vector3(0.5f, 0.5f, 0.1f);
+        public Vector3 kleur2 = new Vector3(1f, 1f, 1f);
         public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
         public Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
-        public float intersectDist = 100;
+        public float intersectDist = 1000; // what is this used for?
         public Vector3 intersection;
         public Vector3 normal;
         public Light light;
-       
+        Vector3 kleur = new Vector3();
+
         public int radius = 1;
         public List<Primitive> primitieven;
         List<Vector3> [] intersecties = new List<Vector3>[3];
@@ -35,19 +36,19 @@ namespace template
 
         public Scene()
         {
-            light = new Light();
+            light = new Light(lightPositie, lightKleur);
 
             Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1));
             Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
             Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
             primitieven = new List<Primitive>();
+            primitieven.Add(plane);
             primitieven.Add(sphere1);
             primitieven.Add(sphere2);
             primitieven.Add(sphere3);
-            primitieven.Add(plane);
+            
         }
-
 
         public float IntersectMethod(Ray ray)
         {            
@@ -69,8 +70,7 @@ namespace template
             return normal;
         }
         public Vector3 ColorMethod(Ray ray)
-        {
-            Vector3 kleur = new Vector3();
+        { 
             foreach (Primitive p in primitieven)
             {
                 if (p.Intersection(ray) != 0)
@@ -78,12 +78,5 @@ namespace template
             }
             return kleur;
         }
-    }
-
-    public class Intersect
-    {
-        public Primitive Objecten;
-        public Ray ray;
-        public float afstand;
     }
 }

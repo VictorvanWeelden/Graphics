@@ -9,8 +9,10 @@ namespace template
         Vector3 rb;
         Vector3 lo;
         Vector3 n;
+        Vector3 p;
         //Vector3 p;
         float d;
+        float t;
         Material materiaal;
 
         public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
@@ -25,8 +27,8 @@ namespace template
         public override float Intersection(Ray ray)
         {
             n = new Vector3(lb.X, rb.Y, lo.Z);
-            float t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
-            Vector3 p = ray.O + (t * ray.D);
+            t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
+            p = ray.O + (t * ray.D);
 
             normal = new Vector3(lb.X, rb.Y, lo.Z);
             ray.T = t;
