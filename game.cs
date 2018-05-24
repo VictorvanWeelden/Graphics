@@ -12,6 +12,7 @@ public class Game
         public Raytracer raytracer;
         public Scene scene = new Scene();
         public int size = 256;
+
         
         public int CreateColor(int red, int green, int blue)
         {
@@ -41,8 +42,12 @@ public class Game
     public void Debug()
         {
             screen.Plot((Xtrans((int)raytracer.cameraPosition.X)), (Ytrans((int)raytracer.cameraPosition.Z)), 0xffffff);
-            screen.Line((Xtrans(-1)), (Ytrans(2)), (Xtrans(1)), (Ytrans(2)), 0xffffff);
-            
+            screen.Line((Xtrans((int)raytracer.camera.P0.X)), (Ytrans((int)raytracer.camera.P0.Z)), (Xtrans((int)raytracer.camera.P1.X)), (Ytrans((int) raytracer.camera.P1.Z)), 0xffffff);
+            int z = 1;
+            for(int i = 0; i<raytracer.eindpunten.Length; i++)
+            {
+                screen.Line((Xtrans((int)raytracer.cameraPosition.X)), (Ytrans((int)raytracer.cameraPosition.Z)), ((int)raytracer.eindpunten[i].X), ((int)raytracer.eindpunten[i].Y), 0xffffff);
+            }
 
             float r = scene.radius * (screen.height/10);
             for(double i = 0.0; i < 360.0; i += 0.1)

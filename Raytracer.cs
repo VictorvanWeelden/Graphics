@@ -12,7 +12,7 @@ namespace template
         public Vector3 cameraPosition = new Vector3(0, 0, 1);
         Vector3 cameraRichting = new Vector3(0, 0, 1); // Deze waarde maakt niets uit for some reason.
         float c;
-        Camera camera;
+        public Camera camera;
         Vector3 richting;
         Vector3 richtingnorm;
         Template.Surface screen;
@@ -21,7 +21,7 @@ namespace template
         Scene scene;
         public float Width;
         public float Height;
-        public Vector3[,] opslagplaatsen;
+        public Vector4[,] opslagplaatsen;
         Vector3 I;
         Vector3 N;
         Vector3 l;
@@ -29,6 +29,7 @@ namespace template
         float dist;
         float attenuation;
         Vector3 black = new Vector3(0, 0, 0);
+        public Vector2[] eindpunten;
 
         public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
@@ -39,9 +40,11 @@ namespace template
             this.scene = scene;
             Width = (float)width;
             Height = (float)height;
-            opslagplaatsen = new Vector3[width, height];
+            opslagplaatsen = new Vector4[width, height];
+            eindpunten = new Vector2[(int)Width];
                  
         }
+
         int CreateColor(float R, float B, float G)
         {
             return ((int)(R * 255) << 16) + ((int)(B * 255) << 8) + ((int)G * 255);
@@ -57,11 +60,20 @@ namespace template
             {
                 for (float j = 0; j < Height; j++)
                 {
-                    richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
+                    richting = -(camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
                     richtingnorm = Vector3.Multiply(richting, (1 / ((float)Math.Sqrt((richting.X * richting.X) + (richting.Y * richting.Y) + (richting.Z * richting.Z)))));
+                    float normlengte = (float)Math.Sqrt((richting.X * richtingnorm.X) + (richtingnorm.Y * richtingnorm.Y) + (richtingnorm.Z * richtingnorm.Z));
                     r = new Ray(cameraPosition, richtingnorm);
+                    
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
-                    opslagplaatsen[(int)i, (int)j] = r.D;
+
+                    if (j == Height - 1)
+                    {
+                        eindpunten[(int)i] = new Vector2(t * -r.D.X, t * -r.D.Z +1);
+                        
+                        
+                    }
+                    
                 }               
             }
             //cameraPosition.Y += .5f;
