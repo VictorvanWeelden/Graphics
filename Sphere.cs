@@ -6,7 +6,6 @@ namespace template
     {
         float radius;
         Vector3 positie;
-        Material materiaal;
         Vector3 c;
         float t;
         Vector3 q;
@@ -16,8 +15,7 @@ namespace template
         {
             radius = r;
             positie = p;
-            materiaal = m;
-            base.material = m;
+            material = m;
         }
 
         public static float Dot(Vector3 vector1, Vector3 vector2)
@@ -39,11 +37,6 @@ namespace template
             normal = ((ray.D * ray.T) - positie) / radius;
             return ray.T;           
         }
-        public override Vector3 Normal(Vector3 n)
-        {
-
-            //normal = Vector3.Min(position, positie);
-            return n ;
-        }
+        
     }
 }

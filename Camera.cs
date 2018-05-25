@@ -16,7 +16,7 @@ namespace template
         public Vector3 P1;
         public Vector3 P2;
         Material m = new Material(new Vector3(1,1,1));
-        public Plane scherm;
+        //public Plane scherm;
 
 
         public Camera(Vector3 position, Vector3 richting)
@@ -26,7 +26,7 @@ namespace template
             P0 = new Vector3(-schermxy, schermxy, schermz);
         P1 = new Vector3(schermxy, schermxy, schermz);
         P2 = new Vector3(-schermxy, -schermxy, schermz);
-        scherm = new Plane(P0, P1, P2, 1, m);  
+        //scherm = new Plane(P0, P1, P2, 1, m);  
                     
         }
 

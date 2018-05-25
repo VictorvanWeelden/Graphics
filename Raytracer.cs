@@ -60,16 +60,17 @@ namespace template
             {
                 for (float j = 0; j < Height; j++)
                 {
-                    richting = -(camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
-                    richtingnorm = Vector3.Multiply(richting, (1 / ((float)Math.Sqrt((richting.X * richting.X) + (richting.Y * richting.Y) + (richting.Z * richting.Z)))));
-                    float normlengte = (float)Math.Sqrt((richting.X * richtingnorm.X) + (richtingnorm.Y * richtingnorm.Y) + (richtingnorm.Z * richtingnorm.Z));
+                    richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
+                    richtingnorm = Vector3.Normalize(richting);
+                        
                     r = new Ray(cameraPosition, richtingnorm);
                     
-                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
+                    screen.Plot((int)i, (int)Height- (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
 
-                    if (j == Height - 1)
+                    if (j == Height / 2)
                     {
-                        eindpunten[(int)i] = new Vector2(t * -r.D.X, t * -r.D.Z +1);
+                        eindpunten[(int)i] = new Vector2(I.X, I.Z + cameraPosition.Z);
+                        
                         
                         
                     }
@@ -81,14 +82,15 @@ namespace template
 
         Vector3 Trace(Ray ray)
         {
-            t = scene.IntersectMethod(ray);
+            scene.IntersectMethod(ray);
+            t = scene.rayt;
             I = t*ray.D;
-            N = scene.NormalMethod(ray);
-            if(I == black)
+            N = scene.normal;
+            if(I == black || I.Z<0)
             {
                 return black;
             }
-            return DirectIllumination(I, N);// * scene.ColorMethod(ray);
+            return DirectIllumination(I, N) * scene.ColorMethod(ray);
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
@@ -98,8 +100,8 @@ namespace template
             L = l- I;
             dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1 / dist;
-          //  if(!IsVisible(I, L, dist))
-           //     return new Vector3(0, 0, 0);
+            if(!IsVisible(I, L, dist))
+               return new Vector3(0, 0, 0);
             
             attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;

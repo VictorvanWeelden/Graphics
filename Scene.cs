@@ -50,16 +50,24 @@ namespace template
             
         }
 
-        public float IntersectMethod(Ray ray)
+        public void IntersectMethod(Ray ray)
         {            
             foreach (Primitive p in primitieven )
             {               
                  p.Intersection(ray);
-                 rayt = ray.T;   
+                if (ray.T > 0 && ray.T < 10000) // er is een positief en niet oneindig ver snijpunt
+                {
+                    rayt = ray.T;
+                    normal = p.normal;
+                    kleur = p.material.kleur;
+                }
             }
-            return rayt;
+            
+
         }
-        public Vector3 NormalMethod(Ray ray)
+
+
+        /*public Vector3 NormalMethod(Ray ray)
         {
 
             foreach (Primitive p in primitieven)
@@ -68,14 +76,9 @@ namespace template
                 normal = p.normal;
             }
             return normal;
-        }
+        }*/
         public Vector3 ColorMethod(Ray ray)
         { 
-            foreach (Primitive p in primitieven)
-            {
-                if (p.Intersection(ray) != 0)
-                    kleur = p.material.kleur;
-            }
             return kleur;
         }
     }

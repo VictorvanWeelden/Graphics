@@ -41,12 +41,13 @@ public class Game
 
     public void Debug()
         {
-            screen.Plot((Xtrans((int)raytracer.cameraPosition.X)), (Ytrans((int)raytracer.cameraPosition.Z)), 0xffffff);
-            screen.Line((Xtrans((int)raytracer.camera.P0.X)), (Ytrans((int)raytracer.camera.P0.Z)), (Xtrans((int)raytracer.camera.P1.X)), (Ytrans((int) raytracer.camera.P1.Z)), 0xffffff);
-            int z = 1;
-            for(int i = 0; i<raytracer.eindpunten.Length; i++)
+            screen.Plot(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), 0xffffff);
+            screen.Line(((int)Xtrans(raytracer.camera.P0.X)), ((int)Ytrans(raytracer.camera.P0.Z)), ((int)Xtrans(raytracer.camera.P1.X)), ((int)Ytrans(raytracer.camera.P1.Z)), 0xffffff);
+
+            for (int i = 0; i<raytracer.eindpunten.Length; i++)
             {
-                screen.Line((Xtrans((int)raytracer.cameraPosition.X)), (Ytrans((int)raytracer.cameraPosition.Z)), ((int)raytracer.eindpunten[i].X), ((int)raytracer.eindpunten[i].Y), 0xffffff);
+                screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans(raytracer.eindpunten[0].Y)), 0xffffff);
+                
             }
 
             float r = scene.radius * (screen.height/10);
@@ -73,14 +74,14 @@ public class Game
             }
         }
 
-    public int Xtrans(int x)
+    public float Xtrans(float x)
         {
             return x * (screen.width/20) + (screen.width * 3/4);
         }
 
-    public int Ytrans(int y)
+    public float Ytrans(float y)
         {
-            return screen.height - y * (screen.height / 10);
+            return screen.height - (y * (screen.height / 10));
         }
     }
 

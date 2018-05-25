@@ -36,8 +36,7 @@ namespace template
         }*/
 
         abstract public float Intersection(Ray ray);
-
-        abstract public Vector3 Normal(Vector3 n);
+        
 
        
     }

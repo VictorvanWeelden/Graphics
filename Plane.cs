@@ -14,7 +14,6 @@ namespace template
         float d;
         float t;
         Vector3 dir;
-        Material materiaal;
 
         public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
         {
@@ -22,10 +21,10 @@ namespace template
             rb = rechtsboven;
             lo = linksonder;
             d = D;
-            materiaal = m;
+            material = m;
             dir = Vector3.Cross(rb - lb, lo - lb);
             n = Vector3.Normalize(dir);
-            Normal(n);
+            normal = n;
 
         }
 
@@ -33,16 +32,17 @@ namespace template
         {
             t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
             p = ray.O + (t * ray.D);
-            
-            ray.T = t;
-            return ray.T;
+
+            if (t > 0)
+            {
+                ray.T = t;
+                return ray.T;
+            }
+            else return 0;
             
         }
 
-        public override Vector3 Normal(Vector3 n)
-        {
-            return n;
-        }
+        
 
     }
 }
