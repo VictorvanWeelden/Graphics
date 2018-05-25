@@ -54,10 +54,10 @@ namespace template
         {            
             foreach (Primitive p in primitieven )
             {               
-                 p.Intersection(ray);
+                 p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
                 if (ray.T > 0 && ray.T < 10000) // er is een positief en niet oneindig ver snijpunt
                 {
-                    rayt = ray.T;
+                    rayt = ray.T; //lengte ray
                     normal = p.normal;
                     kleur = p.material.kleur;
                 }

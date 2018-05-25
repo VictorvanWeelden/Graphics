@@ -60,33 +60,29 @@ namespace template
             {
                 for (float j = 0; j < Height; j++)
                 {
-                    richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + j / camera.height * (camera.P2 - camera.P0)) - cameraPosition);
-                    richtingnorm = Vector3.Normalize(richting);
-                        
+                    //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
+                    // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
+                    richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + (j / camera.height * (camera.P2 - camera.P0)) - cameraPosition));
+                    richtingnorm = Vector3.Normalize(richting);    
                     r = new Ray(cameraPosition, richtingnorm);
-                    
-                    screen.Plot((int)i, (int)Height- (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z));
+                    screen.Plot((int)i, (int)Height- (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
 
-                    if (j == Height / 2)
+                    if (j == Height / 2) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
-                        eindpunten[(int)i] = new Vector2(I.X, I.Z + cameraPosition.Z);
-                        
-                        
-                        
+                        eindpunten[(int)i] = new Vector2(I.X, I.Z + cameraPosition.Z); // deze camera positie hoort ergens anders denk ik
                     }
                     
                 }               
             }
-            //cameraPosition.Y += .5f;
         }
 
         Vector3 Trace(Ray ray)
         {
-            scene.IntersectMethod(ray);
-            t = scene.rayt;
-            I = t*ray.D;
-            N = scene.normal;
-            if(I == black || I.Z<0)
+            scene.IntersectMethod(ray); 
+            t = scene.rayt; // de lengte van de ray
+            I = t*ray.D; // het snijpunt van de ray
+            N = scene.normal; // de normal van primitieve tov de ray
+            if(I == black || I.Z<0) //als er geen snijpunt is teken zwart
             {
                 return black;
             }

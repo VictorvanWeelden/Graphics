@@ -25,13 +25,13 @@ namespace template
 
         public override float Intersection(Ray ray)
         {
-            
-            c = this.positie - ray.O; //sphere intersection code from lecture (modified to work in C# with our variables)
+            //ray.D = ray richting, ray.O = ray origin, ray.T = ray lengte, positie = middelpunt sphere
+            c = positie - ray.O; //Code aangepast naar voorbeeld uit hoorcollege
             t = Dot(c, ray.D);
             q = c - t * ray.D;
-            p = Dot(q, q);
-            if (p > Math.Pow(this.radius, 2)) return 0f;
-            t -= (float)Math.Sqrt(this.radius - p);
+            p = Vector3.Dot(q, q);
+            if (p > Math.Pow(radius, 2)) return 0f;
+            t -= (float)Math.Sqrt(radius - p);
             if ((t < ray.T) && (t > 0)) ray.T = t;
 
             normal = ((ray.D * ray.T) - positie) / radius;

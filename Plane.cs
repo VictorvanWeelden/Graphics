@@ -30,15 +30,15 @@ namespace template
 
         public override float Intersection(Ray ray)
         {
+            // afstand van origin ray tot snijpunt is het dotproduct van de origin en de normal / ...
+            //... het dotproduct van de richting van de ray en de normal
             t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
-            p = ray.O + (t * ray.D);
-
-            if (t > 0)
-            {
+            
+            // p = ray.O + (t * ray.D); // ik weet niet waar dit voor was
+            
                 ray.T = t;
                 return ray.T;
-            }
-            else return 0;
+            
             
         }
 
