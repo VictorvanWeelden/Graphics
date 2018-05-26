@@ -21,7 +21,7 @@ namespace template
         Scene scene;
         public float Width;
         public float Height;
-        public Vector4[,] opslagplaatsen;
+        public float HalfHeight;
         Vector3 I;
         Vector3 N;
         Vector3 l;
@@ -30,6 +30,8 @@ namespace template
         float attenuation;
         Vector3 black = new Vector3(0, 0, 0);
         public Vector2[] eindpunten;
+        public Vector3 P2_P0;
+        public Vector3 P1_P0;
 
         public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
@@ -38,11 +40,12 @@ namespace template
             richting = new Vector3();
             richtingnorm = new Vector3();
             this.scene = scene;
-            Width = (float)width;
-            Height = (float)height;
-            opslagplaatsen = new Vector4[width, height];
+            Width = width;
+            Height = height;
             eindpunten = new Vector2[(int)Width];
-                 
+            HalfHeight = Height / 2;
+            P2_P0 = camera.ScreenWidth();
+            P1_P0 = camera.ScreenHeight();                 
         }
 
         int CreateColor(float R, float B, float G)
@@ -62,18 +65,20 @@ namespace template
                 {
                     //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
                     // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
-                    richting = (camera.P0 + (i / camera.width * (camera.P1 - camera.P0) + (j / camera.height * (camera.P2 - camera.P0)) - cameraPosition));
+                    richting = (camera.P0 + (i / camera.width * (P1_P0) + (j / camera.height * (P2_P0)) - cameraPosition));
                     richtingnorm = Vector3.Normalize(richting);    
                     r = new Ray(cameraPosition, richtingnorm);
                     screen.Plot((int)i, (int)Height- (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
 
-                    if (j == Height / 2) // bewaar snijpunten voor de debug in vector2 array eindpunten
+                    if (j == HalfHeight) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
                         eindpunten[(int)i] = new Vector2(I.X, I.Z + cameraPosition.Z); // deze camera positie hoort ergens anders denk ik
-                    }
-                    
-                }               
+                    }                    
+                }             
             }
+           // camera.schermz += 0.001f; aanpassen scherm positie
+          //  P2_P0 = camera.ScreenWidth();
+          //  P1_P0 = camera.ScreenHeight();
         }
 
         Vector3 Trace(Ray ray)
@@ -91,13 +96,12 @@ namespace template
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
         {
-            
             l = scene.lightPositie;
             L = l- I;
             dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1 / dist;
             if(!IsVisible(I, L, dist))
-               return new Vector3(0, 0, 0);
+               return black;
             
             attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
@@ -105,7 +109,7 @@ namespace template
 
         bool IsVisible(Vector3 a, Vector3 b, float d)
         {
-            c = a.X * b.X + a.Y * b.Y + a.Z * b.Z;
+            c = Vector3.Dot(a, b);
             if (d * c > 0)
                 return true;
             else return false;                    

@@ -63,10 +63,9 @@ namespace Template
 			GL.TexImage2D( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, 
 						   game.screen.width, game.screen.height, 0, 
 						   OpenTK.Graphics.OpenGL.PixelFormat.Bgra, 
-						   PixelType.UnsignedByte, game.screen.pixels 
-						 );
-			// clear window contents
-			GL.Clear( ClearBufferMask.ColorBufferBit );
+						   PixelType.UnsignedByte, game.screen.pixels);
+            // clear window contents
+            GL.Clear( ClearBufferMask.ColorBufferBit );
 			// setup camera
 			GL.MatrixMode( MatrixMode.Modelview );
 			GL.LoadIdentity();
@@ -86,8 +85,6 @@ namespace Template
 		{ 
 			// entry point
 			using (OpenTKApp app = new OpenTKApp()) { app.Run( 30.0, 0.0 ); }
-            
-
 		}
 	}
 }

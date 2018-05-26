@@ -9,8 +9,6 @@ namespace template
         Vector3 rb;
         Vector3 lo;
         Vector3 n;
-        Vector3 p;
-        //Vector3 p;
         float d;
         float t;
         Vector3 dir;
@@ -25,7 +23,6 @@ namespace template
             dir = Vector3.Cross(rb - lb, lo - lb);
             n = Vector3.Normalize(dir);
             normal = n;
-
         }
 
         public override float Intersection(Ray ray)
@@ -33,16 +30,8 @@ namespace template
             // afstand van origin ray tot snijpunt is het dotproduct van de origin en de normal / ...
             //... het dotproduct van de richting van de ray en de normal
             t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
-            
-            // p = ray.O + (t * ray.D); // ik weet niet waar dit voor was
-            
-                ray.T = t;
-                return ray.T;
-            
-            
+            ray.T = t;
+            return ray.T;
         }
-
-        
-
     }
 }

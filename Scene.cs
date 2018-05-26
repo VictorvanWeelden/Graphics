@@ -22,8 +22,8 @@ namespace template
         public Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
         public Vector3 kleur2 = new Vector3(1f, 1f, 1f);
         public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
-        public Vector3 kleur4 = new Vector3(1f, 0.1f, 0.1f);
-        public float intersectDist = 1000; // what is this used for?
+        public Vector3 kleur4 = new Vector3(1f, 0.5f, 0.5f);
+        public float maxintersectDist = 1000;
         public Vector3 intersection;
         public Vector3 normal;
         public Light light;
@@ -44,28 +44,24 @@ namespace template
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
             primitieven = new List<Primitive>();
             primitieven.Add(plane);
-            primitieven.Add(sphere1);
-            primitieven.Add(sphere2);
-            primitieven.Add(sphere3);
-            
+            //primitieven.Add(sphere1);
+            //primitieven.Add(sphere2);
+            //primitieven.Add(sphere3);            
         }
 
         public void IntersectMethod(Ray ray)
         {            
             foreach (Primitive p in primitieven )
             {               
-                 p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
-                if (ray.T > 0 && ray.T < 10000) // er is een positief en niet oneindig ver snijpunt
+                p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
+                if (ray.T > 0 && ray.T < maxintersectDist) // er is een positief en niet oneindig ver snijpunt
                 {
                     rayt = ray.T; //lengte ray
                     normal = p.normal;
                     kleur = p.material.kleur;
                 }
-            }
-            
-
+            }           
         }
-
 
         /*public Vector3 NormalMethod(Ray ray)
         {
