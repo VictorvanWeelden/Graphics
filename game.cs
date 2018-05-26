@@ -47,11 +47,11 @@ public class Game
             
             for (int i = 0; i < raytracer.eindpunten.Length; i++)
             {
-                screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans(raytracer.eindpunten[0].Y)), 0xff00ff);
+                screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans((raytracer.eindpunten[i].Y))), 0xff00ff);
 
             }
 
-            screen.Line(((int)Xtrans(raytracer.camera.P0.X)), ((int)Ytrans(raytracer.camera.P0.Z)), ((int)Xtrans(raytracer.camera.P1.X)), ((int)Ytrans(raytracer.camera.P1.Z)), 0xffffff);
+            
 
 
             float r = scene.radius * (screen.height/10);

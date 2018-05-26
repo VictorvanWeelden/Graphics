@@ -70,9 +70,10 @@ namespace template
                     r = new Ray(cameraPosition, richtingnorm);
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
 
-                    if (j == HalfHeight) // bewaar snijpunten voor de debug in vector2 array eindpunten
+                    if (j == HalfHeight && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
                         eindpunten[(int)i] = new Vector2(I.X, I.Z);
+
                     }
                     
                 }             
