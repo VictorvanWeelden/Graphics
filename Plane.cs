@@ -25,13 +25,13 @@ namespace template
             normal = n;
         }
 
-        public override float Intersection(Ray ray)
+        public override void Intersection(Ray ray)
         {
             // afstand van origin ray tot snijpunt is het dotproduct van de origin en de normal / ...
             //... het dotproduct van de richting van de ray en de normal
             t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
             ray.T = t;
-            return ray.T;
+            //return ray.T;
         }
     }
 }

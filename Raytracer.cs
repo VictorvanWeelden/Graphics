@@ -68,11 +68,11 @@ namespace template
                     richting = (camera.P0 + (i / camera.width * (P1_P0) + (j / camera.height * (P2_P0)) - cameraPosition));
                     richtingnorm = Vector3.Normalize(richting);    
                     r = new Ray(cameraPosition, richtingnorm);
-                    screen.Plot((int)i, (int)Height- (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
+                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
 
                     if (j == HalfHeight) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
-                        eindpunten[(int)i] = new Vector2(I.X, I.Z + cameraPosition.Z); // deze camera positie hoort ergens anders denk ik
+                        eindpunten[(int)i] = new Vector2(I.X, I.Z); // deze camera positie hoort ergens anders denk ik
                     }                    
                 }             
             }
@@ -85,9 +85,9 @@ namespace template
         {
             scene.IntersectMethod(ray); 
             t = scene.rayt; // de lengte van de ray
-            I = t*ray.D; // het snijpunt van de ray
+            I = ray.O + (t*ray.D); // het snijpunt van de ray
             N = scene.normal; // de normal van primitieve tov de ray
-            if(I == black || I.Z<0) //als er geen snijpunt is teken zwart
+            if(I == black) //als er geen snijpunt is teken zwart
             {
                 return black;
             }
