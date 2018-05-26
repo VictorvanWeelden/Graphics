@@ -30,12 +30,13 @@ namespace template
             t = Dot(c, ray.D);
             q = c - t * ray.D;
             p = Vector3.Dot(q, q);
-            if (p > Math.Pow(radius, 2)) return; // 0f;
+            if (p > Math.Pow(radius, 2)) return;
             t -= (float)Math.Sqrt((Math.Pow(radius,2) - p));
-            if ((t < ray.T) && (t > 0)) ray.T = t;
+            if ((t < ray.T) && (t > 0))
+            { ray.T = t; }
 
             normal = ((ray.D * ray.T) - positie) / radius;
-            //return ray.T;           
+                     
         }
         
     }

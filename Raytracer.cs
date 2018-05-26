@@ -65,17 +65,19 @@ namespace template
                 {
                     //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
                     // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
-                    richting = (camera.P0 + (i / camera.width * (P1_P0) + (j / camera.height * (P2_P0)) - cameraPosition));
+                    richting = (camera.P0 + (i / camera.width * (P1_P0) + ((Height-j) / camera.height * (P2_P0)) - cameraPosition));
                     richtingnorm = Vector3.Normalize(richting);    
                     r = new Ray(cameraPosition, richtingnorm);
                     screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
 
                     if (j == HalfHeight) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
-                        eindpunten[(int)i] = new Vector2(I.X, I.Z); // deze camera positie hoort ergens anders denk ik
-                    }                    
+                        eindpunten[(int)i] = new Vector2(I.X, I.Z);
+                    }
+                    
                 }             
             }
+           
            // camera.schermz += 0.001f; aanpassen scherm positie
           //  P2_P0 = camera.ScreenWidth();
           //  P1_P0 = camera.ScreenHeight();
@@ -85,9 +87,11 @@ namespace template
         {
             scene.IntersectMethod(ray); 
             t = scene.rayt; // de lengte van de ray
-            I = ray.O + (t*ray.D); // het snijpunt van de ray
+            
+                I = ray.O + (t * ray.D); // het snijpunt van de ray
+            
             N = scene.normal; // de normal van primitieve tov de ray
-            if(I == black) //als er geen snijpunt is teken zwart
+            if(I.Z == ray.O.Z) //als er geen snijpunt is teken zwart
             {
                 return black;
             }
@@ -99,7 +103,7 @@ namespace template
             l = scene.lightPositie;
             L = l- I;
             dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
-            L *= 1 / dist;
+            L *= 1.0f / dist;
             if(!IsVisible(I, L, dist))
                return black;
             

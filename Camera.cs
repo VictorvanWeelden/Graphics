@@ -10,7 +10,7 @@ namespace template
         public Vector3 direction;
         public float width = 256;
         public float height = 256;
-        public float schermxy = 2;
+        public float schermxy = 1;
         public float schermz = 2;
         public Vector3 P0;
         public Vector3 P1;

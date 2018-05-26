@@ -44,9 +44,9 @@ namespace template
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
             primitieven = new List<Primitive>();
             primitieven.Add(plane);
-            //primitieven.Add(sphere1);
-            //primitieven.Add(sphere2);
-            //primitieven.Add(sphere3);            
+            primitieven.Add(sphere1);
+            primitieven.Add(sphere2);
+            primitieven.Add(sphere3);            
         }
 
         public void IntersectMethod(Ray ray)
