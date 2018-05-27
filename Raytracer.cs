@@ -9,48 +9,30 @@ namespace template
 {
     public class Raytracer
     {
+        Vector3 I;
         public Vector3 cameraPosition = new Vector3(0, 0, 1);
-        Vector3 cameraRichting = new Vector3(0, 0, 1); // Deze waarde maakt niets uit for some reason.
-        float c;
         public Camera camera;
-        Vector3 richting;
-        Vector3 richtingnorm;
         Template.Surface screen;
-        Ray r;
-        public float t;
         Scene scene;
         public float Width;
         public float Height;
-        public float HalfHeight;
-        Vector3 I;
-        Vector3 N;
-        Vector3 l;
-        Vector3 L;
-        float dist;
-        float attenuation;
-        Vector3 black = new Vector3(0, 0, 0);
         public Vector2[] eindpunten;
-        public Vector3 P2_P0;
-        public Vector3 P1_P0;
 
         public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
             this.screen = screen;
+            Vector3 cameraRichting = new Vector3(0, 0, -1);
             camera = new Camera(cameraPosition, cameraRichting);
-            richting = new Vector3();
-            richtingnorm = new Vector3();
+            
             this.scene = scene;
             Width = width;
             Height = height;
             eindpunten = new Vector2[(int)Width];
-            HalfHeight = Height / 2;
-            P2_P0 = camera.ScreenWidth();
-            P1_P0 = camera.ScreenHeight();                 
         }
 
-        int CreateColor(float R, float B, float G)
+        int CreateColor(float R, float G, float B)
         {
-            return ((int)(R * 255) << 16) + ((int)(B * 255) << 8) + ((int)G * 255);
+            return ((int)(R * 255) << 16) + ((int)(G * 255) << 8) + ((int)B * 255);
         }
 
         public void Render()
@@ -65,14 +47,16 @@ namespace template
                 {
                     //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
                     // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
-                    richting = (camera.P0 + (i / camera.width * (P1_P0) + ((Height-j) / camera.height * (P2_P0)) - cameraPosition));
-                    richtingnorm = Vector3.Normalize(richting);    
-                    r = new Ray(cameraPosition, richtingnorm);
-                    screen.Plot((int)i, (int)j, CreateColor(Trace(r).X, Trace(r).Y, Trace(r).Z)); // teken de pixel
+                    Vector3 richting = (camera.linksboven + (i / camera.width * (camera.rechtsboven - camera.linksboven) + ((Height-j) / camera.height * (camera.linksonder - camera.linksboven)) - cameraPosition));
+                    Vector3 richtingnorm = Vector3.Normalize(richting);    
+                    Ray r = new Ray(cameraPosition, richtingnorm);
+                    Vector3 color = Trace(r);
+                    screen.Plot((int)i, (int)j, CreateColor(color.X, color.Y, color.Z)); // teken de pixel
 
-                    if (j == HalfHeight && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
+                    if (j == Height/2  && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
                         eindpunten[(int)i] = new Vector2(I.X, I.Z);
+                        Console.WriteLine(eindpunten[(int)i]);
 
                     }
                     
@@ -86,41 +70,49 @@ namespace template
         
         Vector3 Trace(Ray ray)
         {
-            scene.IntersectMethod(ray); 
-            t = scene.rayt; // de lengte van de ray
-            Material m = scene.material;
-           
-                I = ray.O + (t * ray.D); // het snijpunt van de ray
+            Intersection intersection = scene.IntersectMethod(ray);
+            if (intersection == null)
+                return Vector3.Zero;
             
-            N = scene.normal; // de normal van primitieve tov de ray
-            if(I.Z == ray.O.Z) //als er geen snijpunt is teken zwart
+            float t = intersection.distance; // de lengte van de ray
+
+            Material m = intersection.material;
+
+
+            I = intersection.intersectionPoint; //ray.O + (t * ray.D); // het snijpunt van de ray
+            
+
+            Vector3 N = intersection.normal; // de normal van primitieve tov de ray
+            /*if (I.Z == ray.O.Z) //als er geen snijpunt is teken zwart
             {
                 return black;
-            }
-            
+            }*/
+
             return DirectIllumination(I, N) * m.kleur;
+            
+            
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
         {
-            l = scene.lightPositie;
-            L = l- I;
+            Vector3 l = scene.lightPositie;
+            Vector3 L = l- I;
 
-            dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
-            L *= 1.0f / dist;
+            float dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
+            L *= 1.0f / dist;  //unit vector
             if(!IsVisible(I, L, dist))
-               return black;
+               return Vector3.Zero;
             
             
-            attenuation = 1 / (dist * dist);
+            float attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
         }
 
-        bool IsVisible(Vector3 a, Vector3 b, float d)
+        bool IsVisible(Vector3 I, Vector3 L, float d)
         {
             
-            c = Vector3.Dot(a, b);
-            if (d * c < 0)
+            float c = Vector3.Dot(I, L);
+            if (d * c < 0)  //uit mn hoofd moet dit > 0 zijn maar dat werkt niet
             {
                 return true;
                 

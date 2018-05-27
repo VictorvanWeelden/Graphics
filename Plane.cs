@@ -10,7 +10,6 @@ namespace template
         Vector3 lo;
         Vector3 n;
         float d;
-        float t;
         Vector3 dir;
 
         public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
@@ -25,13 +24,17 @@ namespace template
             normal = n;
         }
 
-        public override void Intersection(Ray ray)
+        public override Intersection Intersection(Ray ray)
         {
             // afstand van origin ray tot snijpunt is het dotproduct van de origin en de normal / ...
             //... het dotproduct van de richting van de ray en de normal
-            t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
-            ray.T = t;
-            //return ray.T;
+            float t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
+            if (t > 0)
+            {
+                return new Intersection(this, normal, t, material);
+                
+            }
+            return null;
         }
     }
 }

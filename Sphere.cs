@@ -23,19 +23,22 @@ namespace template
             return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
         }
 
-        public override void Intersection(Ray ray)
+        public override Intersection Intersection(Ray ray)
         {
             //ray.D = ray richting, ray.O = ray origin, ray.T = ray lengte, positie = middelpunt sphere
             c = positie - ray.O; //Code aangepast naar voorbeeld uit hoorcollege
             t = Dot(c, ray.D);
             q = c - t * ray.D;
             p = Vector3.Dot(q, q);
-            if (p > Math.Pow(radius, 2)) return;
+            if (p > Math.Pow(radius, 2)) return null;
             t -= (float)Math.Sqrt((Math.Pow(radius,2) - p));
-            if ((t < ray.T) && (t > 0))
-            { ray.T = t; }
+            if ((t > 0))
+            {
+                normal = ((ray.D * t) - positie) / radius;
 
-            normal = ((ray.D * ray.T) - positie) / radius;
+                return new Intersection(this, normal, t, material);
+            }
+            return null;
                      
         }
         

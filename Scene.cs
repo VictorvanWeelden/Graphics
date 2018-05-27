@@ -9,7 +9,7 @@ namespace template
 {
     public class Scene
     {
-        public float rayt;
+        
              
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
@@ -24,7 +24,6 @@ namespace template
         public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
         public Vector3 kleur4 = new Vector3(0.5f, 0.5f, 0.5f);
         public float maxintersectDist = 1000;
-        public Vector3 intersection;
         public Vector3 normal;
         public Light light;
         public Vector3 kleur = new Vector3();
@@ -43,42 +42,32 @@ namespace template
             Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
             Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
-            primitieven = new List<Primitive>();
-            primitieven.Add(plane);
-            primitieven.Add(sphere1);
-            primitieven.Add(sphere2);
-            primitieven.Add(sphere3);            
+            primitieven = new List<Primitive> {plane, sphere1, sphere2, sphere3} ;
+            
         }
 
-        public void IntersectMethod(Ray ray)
+        public Intersection IntersectMethod(Ray ray)
         {
-            
+            Intersection nearestintersection = null;
             foreach (Primitive p in primitieven )
             {
-                p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
-                if (ray.T > 0 && ray.T < maxintersectDist) // er is een positief en niet oneindig ver snijpunt
+                Intersection intersection = p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
+                
+                if (intersection != null && intersection.distance < maxintersectDist && (nearestintersection == null || intersection.distance < nearestintersection.distance)) // er is een positief en niet oneindig ver snijpunt
                 {
-                        rayt = ray.T; //lengte ray
+                        
                         normal = p.normal;
                         material = p.material;
+                        nearestintersection = new Intersection(p,normal,intersection.distance,material);
+
+                        
                     
                 }
-            }           
-        }
-
-        /*public Vector3 NormalMethod(Ray ray)
-        {
-
-            foreach (Primitive p in primitieven)
-            {
-                p.Intersection(ray);
-                normal = p.normal;
             }
-            return normal;
-        }*/
-        public Vector3 ColorMethod(Ray ray)
-        { 
-            return kleur;
+            return nearestintersection;
         }
+
+        
+        
     }
 }

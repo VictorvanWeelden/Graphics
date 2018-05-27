@@ -11,7 +11,7 @@ namespace template
     {
         public Vector3 O;
         public Vector3 D;
-        public float T;
+        private float T;
         
         public Ray(Vector3 o, Vector3 d)
         {

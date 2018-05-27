@@ -12,13 +12,17 @@ namespace template
         //you will at least want to store the nearest primitive, but perhaps also the normal at the intersection point.
     {
         public Vector3 intersectionPoint;
+        public Primitive nearestPrimitive;
+        public Vector3 normal;
+        public float distance;
+        public Material material;
 
         public Intersection(Primitive p, Vector3 n, float d, Material m)// dit werkt niet want het doet niks!!!!
         {
-            Primitive nearestPrimitive = p;
-            Vector3 normal = n;
-            float distance = d;
-            Material material = p.material;
+            nearestPrimitive = p;
+            normal = n;
+            distance = d;
+            material = p.material;
             intersectionPoint = d * n;
         }
     }

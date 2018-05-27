@@ -35,7 +35,7 @@ namespace template
             return (double)(a.X * b.X + a.Y + b.Y + a.Z * b.Z) / (Normal(a) * Normal(b));
         }*/
 
-        abstract public void Intersection(Ray ray);
+        abstract public Intersection Intersection(Ray ray);
         
 
        
