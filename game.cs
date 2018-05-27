@@ -47,6 +47,7 @@ public class Game
             
             for (int i = 0; i < raytracer.eindpunten.Length; i++)
             {
+
                 screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans((raytracer.eindpunten[i].Y))), 0xff00ff);
 
             }

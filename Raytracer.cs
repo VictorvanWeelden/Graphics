@@ -83,12 +83,13 @@ namespace template
           //  P2_P0 = camera.ScreenWidth();
           //  P1_P0 = camera.ScreenHeight();
         }
-
+        
         Vector3 Trace(Ray ray)
         {
             scene.IntersectMethod(ray); 
             t = scene.rayt; // de lengte van de ray
-            
+            Material m = scene.material;
+           
                 I = ray.O + (t * ray.D); // het snijpunt van de ray
             
             N = scene.normal; // de normal van primitieve tov de ray
@@ -96,17 +97,20 @@ namespace template
             {
                 return black;
             }
-            return DirectIllumination(I, N) * scene.ColorMethod(ray);
+            
+            return DirectIllumination(I, N) * m.kleur;
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
         {
             l = scene.lightPositie;
             L = l- I;
+
             dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1.0f / dist;
             if(!IsVisible(I, L, dist))
                return black;
+            
             
             attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
@@ -114,9 +118,13 @@ namespace template
 
         bool IsVisible(Vector3 a, Vector3 b, float d)
         {
+            
             c = Vector3.Dot(a, b);
-            if (d * c > 0)
+            if (d * c < 0)
+            {
                 return true;
+                
+            }
             else return false;                    
         }
     }

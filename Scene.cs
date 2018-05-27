@@ -22,12 +22,13 @@ namespace template
         public Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
         public Vector3 kleur2 = new Vector3(1f, 1f, 1f);
         public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
-        public Vector3 kleur4 = new Vector3(1f, 0.5f, 0.5f);
+        public Vector3 kleur4 = new Vector3(0.5f, 0.5f, 0.5f);
         public float maxintersectDist = 1000;
         public Vector3 intersection;
         public Vector3 normal;
         public Light light;
-        Vector3 kleur = new Vector3();
+        public Vector3 kleur = new Vector3();
+        public Material material;
 
         public int radius = 1;
         public List<Primitive> primitieven;
@@ -50,15 +51,17 @@ namespace template
         }
 
         public void IntersectMethod(Ray ray)
-        {            
+        {
+            
             foreach (Primitive p in primitieven )
-            {               
+            {
                 p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
                 if (ray.T > 0 && ray.T < maxintersectDist) // er is een positief en niet oneindig ver snijpunt
                 {
-                    rayt = ray.T; //lengte ray
-                    normal = p.normal;
-                    kleur = p.material.kleur;
+                        rayt = ray.T; //lengte ray
+                        normal = p.normal;
+                        material = p.material;
+                    
                 }
             }           
         }
