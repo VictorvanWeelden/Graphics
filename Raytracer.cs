@@ -32,6 +32,7 @@ namespace template
         public Vector2[] eindpunten;
         public Vector3 P2_P0;
         public Vector3 P1_P0;
+        Material m;
 
         public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
@@ -63,8 +64,8 @@ namespace template
             {
                 for (float j = 0; j < Height; j++)
                 {
-                    //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
-                    // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
+                    /*Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven)
+                    + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)*/
                     richting = (camera.P0 + (i / camera.width * (P1_P0) + ((Height-j) / camera.height * (P2_P0)) - cameraPosition));
                     richtingnorm = Vector3.Normalize(richting);    
                     r = new Ray(cameraPosition, richtingnorm);
@@ -73,7 +74,6 @@ namespace template
                     if (j == HalfHeight && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
                         eindpunten[(int)i] = new Vector2(I.X, I.Z);
-
                     }
                     
                 }             
@@ -88,29 +88,28 @@ namespace template
         {
             scene.IntersectMethod(ray); 
             t = scene.rayt; // de lengte van de ray
-            Material m = scene.material;
+            m = scene.material;
            
-                I = ray.O + (t * ray.D); // het snijpunt van de ray
+            I = ray.O + (t * ray.D); // het snijpunt van de ray
             
             N = scene.normal; // de normal van primitieve tov de ray
             if(I.Z == ray.O.Z) //als er geen snijpunt is teken zwart
             {
                 return black;
             }
-            
+
             return DirectIllumination(I, N) * m.kleur;
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
         {
             l = scene.lightPositie;
-            L = l- I;
+            L = l - I;
 
             dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
-            L *= 1.0f / dist;
+            L =  L * (1.0f / dist);
             if(!IsVisible(I, L, dist))
-               return black;
-            
+                return black;            
             
             attenuation = 1 / (dist * dist);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;

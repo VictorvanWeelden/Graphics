@@ -14,26 +14,23 @@ namespace template
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
-        public Vector3 lightPositie = new Vector3(0f, 1f, 1f);
+        public Vector3 lightPositie = new Vector3(1f, 1f, 2f);
         public Vector3 lightKleur = new Vector3(1f, 1f, 1f);
         public Vector3 sphere1Positie = new Vector3(-3f, 0f, 8f);
         public Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
         public Vector3 sphere3Positie = new Vector3(3f, 0f, 8f);
-        public Vector3 kleur1 = new Vector3(0.1f, 0.1f, 1f);
+        public Vector3 kleur1 = new Vector3(1f, 1f, 1f); //0.1, 0.1, 1 vorige waarden
         public Vector3 kleur2 = new Vector3(1f, 1f, 1f);
-        public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
-        public Vector3 kleur4 = new Vector3(0.5f, 0.5f, 0.5f);
-        public float maxintersectDist = 1000;
+        public Vector3 kleur3 = new Vector3(1f, 1f, 1f); // 1, 0.1, 0,1
+        public Vector3 kleur4 = new Vector3(1f, 1f, 1f); //0.5, 0.5, 0.5
+        public float maxintersectDist = 50;
         public Vector3 intersection;
         public Vector3 normal;
         public Light light;
         public Vector3 kleur = new Vector3();
         public Material material;
-
         public int radius = 1;
         public List<Primitive> primitieven;
-        List<Vector3> [] intersecties = new List<Vector3>[3];
-        List<float>[] floats = new List<float>[2];
 
         public Scene()
         {
@@ -51,8 +48,7 @@ namespace template
         }
 
         public void IntersectMethod(Ray ray)
-        {
-            
+        {           
             foreach (Primitive p in primitieven )
             {
                 p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
@@ -60,12 +56,10 @@ namespace template
                 {
                         rayt = ray.T; //lengte ray
                         normal = p.normal;
-                        material = p.material;
-                    
+                        material = p.material;                   
                 }
             }           
         }
-
         /*public Vector3 NormalMethod(Ray ray)
         {
 

@@ -35,8 +35,7 @@ namespace template
             if ((t < ray.T) && (t > 0))
             { ray.T = t; }
 
-            normal = ((ray.D * ray.T) - positie) / radius;
-                     
+            normal = ((ray.D * ray.T) - positie) / radius;                    
         }
         
     }

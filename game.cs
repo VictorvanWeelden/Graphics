@@ -15,6 +15,7 @@ public class Game
         int xpositieDebug;
         int ypositieDebug;
         double hoek;
+        float r;
 
         public int CreateColor(int red, int green, int blue)
         {
@@ -37,25 +38,18 @@ public class Game
 	    public void Tick()
 	    {
             screen.Clear(CreateColor(0, 0, 0));
-            raytracer.Render();
             Debug();
+            raytracer.Render();            
         }
 
         public void Debug()
-        {
-            screen.Plot(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), 0xffffff);
-            
+        {                     
             for (int i = 0; i < raytracer.eindpunten.Length; i++)
             {
-
-                screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans((raytracer.eindpunten[i].Y))), 0xff00ff);
-
+                screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans((raytracer.eindpunten[i].Y))), 0xff00ff);// tekent de ray van de camera naar een intersectie
+                //screen.Line(((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans(raytracer.eindpunten[i].Y)), ((int)Xtrans(scene.lightPositie.X)), ((int)Ytrans(scene.lightPositie.Z)),0x00ffff);// tekent de rays van een intersectie naar de lichtbron
             }
-
-            
-
-
-            float r = scene.radius * (screen.height/10);
+            r = scene.radius * (screen.height/10);
             for(double i = 0.0; i < 360.0; i += 0.1)
             {
                 hoek = i * Math.PI / 180;
@@ -77,6 +71,8 @@ public class Game
                 ypositieDebug = (int)(Ytrans((int)scene.sphere3Positie.Z) + r * Math.Sin(hoek));
                 screen.Plot(xpositieDebug, ypositieDebug, CreateColorf(scene.kleur3.X, scene.kleur3.Y, scene.kleur3.Z));
             }
+            screen.Plot(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), 0xffffff); // geeft de camera positie
+            screen.Plot(((int)Xtrans(scene.lightPositie.X)), ((int)Ytrans(scene.lightPositie.Z)), 0x0fffff); // geeft de licht positie
         }
 
         public float Xtrans(float x)
