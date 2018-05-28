@@ -6,13 +6,11 @@ namespace template
     public abstract class Primitive
     {
         Vector3 positie;
-        //Vector3 kleur;
         public Material material;
         public Vector3 normal;
 
         public Primitive()
         {
-            //Material material = new Material(kleur);
         }
 
         void Beweeg(Vector3 nieuwPositie) // moves the position of the objects in the scene

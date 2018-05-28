@@ -5,21 +5,17 @@ namespace template
 {
     public class Plane : Primitive
     {
-        Vector3 lb;
-        Vector3 rb;
-        Vector3 lo;
         Vector3 n;
         float d;
-        Vector3 dir;
 
         public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
         {
-            lb = linksboven;
-            rb = rechtsboven;
-            lo = linksonder;
-            d = D;
+            Vector3 lb = linksboven;
+            Vector3 rb = rechtsboven;
+            Vector3 lo = linksonder;
+            float d = D;
             material = m;
-            dir = Vector3.Cross(rb - lb, lo - lb);
+            Vector3 dir = Vector3.Cross(rb - lb, lo - lb);
             n = Vector3.Normalize(dir);
             normal = n;
         }

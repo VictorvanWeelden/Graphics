@@ -6,10 +6,6 @@ namespace template
     {
         float radius;
         Vector3 positie;
-        Vector3 c;
-        float t;
-        Vector3 q;
-        float p;
 
         public Sphere(float r, Vector3 p, Material m) //create sphere
         {
@@ -26,10 +22,10 @@ namespace template
         public override Intersection Intersection(Ray ray)
         {
             //ray.D = ray richting, ray.O = ray origin, ray.T = ray lengte, positie = middelpunt sphere
-            c = positie - ray.O; //Code aangepast naar voorbeeld uit hoorcollege
-            t = Dot(c, ray.D);
-            q = c - t * ray.D;
-            p = Vector3.Dot(q, q);
+            Vector3 c = positie - ray.O; //Code aangepast naar voorbeeld uit hoorcollege
+            float t = Dot(c, ray.D);
+            Vector3 q = c - t * ray.D;
+            float p = Vector3.Dot(q, q);
             if (p > Math.Pow(radius, 2)) return null;
             t -= (float)Math.Sqrt((Math.Pow(radius,2) - p));
             if ((t > 0))

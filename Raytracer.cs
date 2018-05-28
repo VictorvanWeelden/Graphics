@@ -32,7 +32,7 @@ namespace template
 
         int CreateColor(float R, float G, float B)
         {
-            return ((int)(R * 255) << 16) + ((int)(G * 255) << 8) + ((int)B * 255);
+            return ((int)(R * 255) << 16) + ((int)(G * 255) << 8) + ((int)(B * 255));
         }
 
         public void Render()
@@ -56,7 +56,6 @@ namespace template
                     if (j == Height/2  && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
                         eindpunten[(int)i] = new Vector2(I.X, I.Z);
-                        Console.WriteLine(eindpunten[(int)i]);
 
                     }
                     

@@ -23,7 +23,7 @@ public class Game
 
         int CreateColorf(float R, float B, float G)
         {
-            return ((int)(R * 255) << 16) + ((int)(B * 255) << 8) + ((int)G * 255);
+            return ((int)(R * 255) << 16) + ((int)(B * 255) << 8) + ((int)(G * 255));
         }
 
         // initialize
