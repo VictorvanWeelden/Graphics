@@ -7,14 +7,14 @@ namespace template
     {
         Vector3 n;
         float d;
+        Vector3 lb;
 
-        public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D, Material m)
+        public Plane(Vector3 linksboven, Vector3 rechtsboven, Vector3 linksonder, float D)
         {
-            Vector3 lb = linksboven;
+            lb = linksboven;
             Vector3 rb = rechtsboven;
             Vector3 lo = linksonder;
             d = D;
-            material = m;
             Vector3 dir = Vector3.Cross(rb - lb, lo - lb);
             n = Vector3.Normalize(dir);
             normal = n;
@@ -28,8 +28,13 @@ namespace template
             if (t > 0)
             {
                 Vector3 intersectionPoint = ray.O + (ray.D * t);
-                return new Intersection(this, normal, t, material, intersectionPoint);
+                int F = (((int)(2 * (intersectionPoint.X - lb.X)) + ((int)(intersectionPoint.Z - lb.Z)))) & 1;
                 
+                if (F == 1)
+                { return new Intersection(this, normal, t, new Material(Vector3.Zero), intersectionPoint); }
+                return new Intersection(this, normal, t, new Material(Vector3.One), intersectionPoint); 
+                
+
             }
             return null;
         }

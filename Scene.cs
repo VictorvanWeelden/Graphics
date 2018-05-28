@@ -37,7 +37,7 @@ namespace template
             Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1));
             Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
             Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
-            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
+            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1);
             primitieven = new List<Primitive> { plane, sphere1, sphere2, sphere3} ;
             
         }
@@ -53,13 +53,7 @@ namespace template
                 if (intersection != null && intersection.distance < maxintersectDist && (nearestintersection == null || intersection.distance < nearestintersection.distance)) // er is een positief en niet oneindig ver snijpunt
                 {
                         
-                        Vector3 normal = p.normal;
-                        Material material = p.material;
-                    Vector3 intersectionP = intersection.intersectionPoint;
-                        nearestintersection = new Intersection(p,normal,intersection.distance,material, intersectionP);
-
-
-                        
+                    nearestintersection = intersection;
                     
                 }
             }

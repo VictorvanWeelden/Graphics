@@ -17,12 +17,12 @@ namespace template
         public float distance;
         public Material material;
 
-        public Intersection(Primitive p, Vector3 n, float d, Material m, Vector3 i)// dit werkt niet want het doet niks!!!!
+        public Intersection(Primitive p, Vector3 n, float d, Material m, Vector3 i)
         {
             nearestPrimitive = p;
             normal = n;
             distance = d;
-            material = p.material;
+            material = m;
             intersectionPoint = i;
         }
     }
