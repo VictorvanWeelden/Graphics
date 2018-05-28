@@ -41,9 +41,9 @@ namespace template
             generate a ray for each pixel, which is then used to find the nearest intersection.The result is
             then visualized by plotting a pixel.*/
 
-            for (float i = 0; i < Width; i++)
+            for (int i = 0; i < Width; i++)
             {
-                for (float j = 0; j < Height; j++)
+                for (int j = 0; j < Height; j++)
                 {
                     //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
                     // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
@@ -51,11 +51,11 @@ namespace template
                     Vector3 richtingnorm = Vector3.Normalize(richting);    
                     Ray r = new Ray(cameraPosition, richtingnorm);
                     Vector3 color = Trace(r);
-                    screen.Plot((int)i, (int)j, CreateColor(color.X, color.Y, color.Z)); // teken de pixel
+                    screen.Plot(i, j, CreateColor(color.X, color.Y, color.Z)); // teken de pixel
 
-                    if (j == Height/2  && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
+                    if (j == Height/2 && i%5 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
-                        eindpunten[(int)i] = new Vector2(I.X, I.Z);
+                        eindpunten[i] = new Vector2(I.X, I.Z);
 
                     }
                     
@@ -72,12 +72,9 @@ namespace template
             Intersection intersection = scene.IntersectMethod(ray);
             if (intersection == null)
                 return Vector3.Zero;
-            
-            float t = intersection.distance; // de lengte van de ray
-
+           
             Material m = intersection.material;
-
-
+            
             I = intersection.intersectionPoint; //ray.O + (t * ray.D); // het snijpunt van de ray
             
 
@@ -86,7 +83,6 @@ namespace template
             {
                 return black;
             }*/
-
             return DirectIllumination(I, N) * m.kleur;
             
             
@@ -101,9 +97,11 @@ namespace template
             L *= 1.0f / dist;  //unit vector
             if(!IsVisible(I, L, dist))
                return Vector3.Zero;
-            
-            
+
+
             float attenuation = 1 / (dist * dist);
+                //1 / (dist * dist);
+            float dot = Vector3.Dot(N, L);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
         }
 

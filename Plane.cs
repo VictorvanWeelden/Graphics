@@ -27,7 +27,8 @@ namespace template
             float t = (Vector3.Dot(ray.O, n) + d) / (Vector3.Dot(ray.D, n));
             if (t > 0)
             {
-                return new Intersection(this, normal, t, material);
+                Vector3 intersectionPoint = ray.O + (ray.D * t);
+                return new Intersection(this, normal, t, material, intersectionPoint);
                 
             }
             return null;

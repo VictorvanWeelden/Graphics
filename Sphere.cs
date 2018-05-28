@@ -31,8 +31,10 @@ namespace template
             if ((t > 0))
             {
                 normal = ((ray.D * t) - positie) / radius;
+                Vector3 intersectionPoint = ray.O + (ray.D * t);
 
-                return new Intersection(this, normal, t, material);
+                return new Intersection(this, normal, t, material, intersectionPoint);
+                
             }
             return null;
                      
