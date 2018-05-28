@@ -38,7 +38,7 @@ namespace template
             Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
             Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1, new Material(kleur4));
-            primitieven = new List<Primitive> {plane, sphere1, sphere2, sphere3} ;
+            primitieven = new List<Primitive> { plane, sphere1, sphere2, sphere3} ;
             
         }
 
@@ -57,6 +57,7 @@ namespace template
                         Material material = p.material;
                     Vector3 intersectionP = intersection.intersectionPoint;
                         nearestintersection = new Intersection(p,normal,intersection.distance,material, intersectionP);
+
 
                         
                     

@@ -9,7 +9,7 @@ namespace template
         public float width = 256;
         public float height = 256;
         public float schermxy = 1;
-        public float schermz = 2;
+        public float schermz = 2.5f;
         public Vector3 linksboven;
         public Vector3 rechtsboven;
         public Vector3 linksonder;

@@ -13,7 +13,7 @@ namespace template
             Vector3 lb = linksboven;
             Vector3 rb = rechtsboven;
             Vector3 lo = linksonder;
-            float d = D;
+            d = D;
             material = m;
             Vector3 dir = Vector3.Cross(rb - lb, lo - lb);
             n = Vector3.Normalize(dir);
