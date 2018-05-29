@@ -51,7 +51,7 @@ namespace template
                     Vector3 richting = (camera.linksboven + (i / camera.width * (camera.rechtsboven - camera.linksboven) + ((Height-j) / camera.height * (camera.linksonder - camera.linksboven)) - camera.pos));
                     Vector3 richtingnorm = Vector3.Normalize(richting);    
                     Ray r = new Ray(camera.pos, richtingnorm);
-                    Vector3 color = Trace(r);
+                    Vector3 color = Trace(r, 0);
                     screen.Plot(i, (int)Height - j, CreateColor(MathHelper.Clamp(color.X, 0, 1), MathHelper.Clamp(color.Y, 0, 1), MathHelper.Clamp(color.Z, 0, 1))); // teken de pixel
 
                     if (j == Height/2 && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
@@ -68,8 +68,10 @@ namespace template
           //  P1_P0 = camera.ScreenHeight();
         }
         
-        Vector3 Trace(Ray ray)
+        Vector3 Trace(Ray ray, int Nrecursion)
         {
+            if (Nrecursion >= maxRecursie)
+                return Vector3.Zero;
             Intersection intersection = scene.IntersectMethod(ray);
             if (intersection == null)
                 return new Vector3(0.5f,0.5f,1f);
@@ -94,7 +96,7 @@ namespace template
                 { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans(recursion.intersectionPoint.X), (int)Ytrans((recursion.intersectionPoint.Z)), 0xffff00); }
 
 
-                return Trace(r) * m.kleur;
+                return Trace(r,Nrecursion+1) * m.kleur;
             }
             if(ShadowRay(I))
             { return Vector3.Zero; }

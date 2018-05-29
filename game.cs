@@ -59,6 +59,9 @@ public class Game
             if (state[Key.Down]) { raytracer.camera.TurnCamera(Key.Down); }
             if (state[Key.Left]) { raytracer.camera.TurnCamera(Key.Left); }
             if (state[Key.Right]) { raytracer.camera.TurnCamera(Key.Right); }
+            
+            if(state[Key.O]) { raytracer.camera.Fov(Key.O); }
+            if (state[Key.P]) { raytracer.camera.Fov(Key.P); }
 
         }
 
