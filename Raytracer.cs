@@ -87,7 +87,13 @@ namespace template
             if(m.isMirror)
             {
                 Ray r = new Ray(I, Reflect(ray.D, N));
-                
+                Intersection recursion = scene.IntersectMethod(r);
+                if (recursion == null && I.Y == 0 && r.D.Y == 0)
+                { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans((r.D.X*10)), (int)Ytrans((r.D.Z*10)), 0xffff00); }
+                if(recursion != null && I.Y == 0 && recursion.intersectionPoint.Y == 0)
+                { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans(recursion.intersectionPoint.X), (int)Ytrans((recursion.intersectionPoint.Z)), 0xffff00); }
+
+
                 return Trace(r) * m.kleur;
             }
             if(ShadowRay(I))
@@ -104,7 +110,7 @@ namespace template
             Vector3 p = scene.lightPositie - I;
             float l = (float)Math.Sqrt((p.X * p.X) + (p.Y * p.Y) + (p.Z * p.Z));
             Vector3 d = new Vector3(p.X / l, p.Y / l, p.Z / l);
-            Ray shadowRay = new Ray(I + (Vector3.Multiply(d,0.1f)), d);
+            Ray shadowRay = new Ray(I + (Vector3.Multiply(d,0.01f)), d);
             Intersection shadow = scene.IntersectMethod(shadowRay);
             if (shadow != null && shadow.distance < l)
                 return true;
@@ -114,7 +120,7 @@ namespace template
 
         Vector3 Reflect(Vector3 D, Vector3 N)
         {
-            return D - 2* N * (Vector3.Dot(D, N));
+            return D - 2 * N * (Vector3.Dot(D, N));
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
@@ -144,6 +150,15 @@ namespace template
                 
             }
             else return false;                    
+        }
+        public float Xtrans(float x)
+        {
+            return x * (screen.width / 20) + (screen.width * 3 / 4);
+        }
+
+        public float Ytrans(float y)
+        {
+            return screen.height - (y * (screen.height / 10));
         }
     }
 }
