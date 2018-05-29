@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
-using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
  
 namespace Template
 {
 	public class Sprite
 	{
+        //unaltered
+
 		Surface bitmap;
 		static public Surface target;
 		int textureID;

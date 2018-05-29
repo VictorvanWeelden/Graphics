@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK;
+﻿using OpenTK;
 
 namespace template
 {
     public class Intersection
-        //stores the result of an intersection. Apart from the intersection distance,
-        //you will at least want to store the nearest primitive, but perhaps also the normal at the intersection point.
     {
-        public Vector3 intersectionPoint;
-        public Primitive nearestPrimitive;
-        public Vector3 normal;
-        public float distance;
+        public Vector3 intersectionPoint; //Intersection location
+        public Primitive nearestPrimitive; //the primitive of which the color should be drawn
+        public Vector3 normal; //the normal of the sphere in relation to the ray
+        public float distance; //the distance from the ray origin to the intersection
         public Material material;
 
         public Intersection(Primitive p, Vector3 n, float d, Material m, Vector3 i)

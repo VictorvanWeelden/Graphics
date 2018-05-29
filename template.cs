@@ -13,7 +13,7 @@ namespace Template
 		static int screenID;
 		static Game game;
 		static bool terminated = false;
-        public int size = 256;
+        public int size = 256; //window size
 
 		protected override void OnLoad( EventArgs e )
 		{

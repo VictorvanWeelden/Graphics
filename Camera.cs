@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using OpenTK;
 using OpenTK.Input;
 
@@ -7,28 +6,25 @@ namespace template
 {
     public class Camera
     {
-        public float width = 256;
-        public float height = 256;
-        public float schermxy = 1f;
-        public float schermz = 1.5f;
-        public Vector3 linksboven;
-        public Vector3 rechtsboven;
-        public Vector3 linksonder;
-        public double FOV = 60;
-        public float horrichting = 0f;
-        public float verrichting = 0f;
-        public Vector3 richting = new Vector3(0,0,1);
-        public Vector3 pos;
-        public Vector3 Up { get { return linksboven - linksonder; }}
-        Vector3 centrum;
-        public Vector3 Right { get { return rechtsboven - linksboven; } }
-
+        public float width = 256; //display screen width in pixels
+        public float height = 256; //display screen height
+        public float schermxy = 1f; //the width of the screen/2
+        public float schermz = 1.5f; //the distance between the camera and the screen
+        public Vector3 linksboven; //P0 of the screen
+        public Vector3 rechtsboven; // P1 of the screen
+        public Vector3 linksonder; //P2 of the screen
+        public double FOV = 90; //The field of view in degrees, adjustable here or using the O and P buttons while running
+        public Vector3 richting = new Vector3(0,0,1); //the camera direction, initially towards positive Z
+        public Vector3 pos; //the position of the camera
+        public Vector3 Up { get { return linksboven - linksonder; }} // the vertical vector of the screen
+        public Vector3 Right { get { return rechtsboven - linksboven; } } //the horizontal vector of the screen
+        Vector3 centrum; //the center of the screen
         public Camera(Vector3 position)
         {
             pos = position;
             centrum = pos + (richting * schermz);
-            double hoek = FOV * Math.PI / 180;
-            schermxy = schermz * (float)Math.Tan(hoek/2);
+            double hoek = FOV * Math.PI / 180; //converting from degrees to radians
+            schermxy = schermz * (float)Math.Tan(hoek/2); 
 
 
             linksboven = (richting*schermz) + new Vector3(-schermxy,schermxy,0);
@@ -39,18 +35,18 @@ namespace template
         }
         public void Fov(Key key)
         {
-            if(key == Key.O)
+            if(key == Key.O) //pressing O increases FOV, pressing P decreases it
             { FOV += 1; }
             if(key == Key.P)
             { FOV -= 1; }
             double hoek = FOV * Math.PI / 180;
             schermxy = schermz * (float)Math.Tan(hoek / 2);
-            linksboven = (richting * schermz) + new Vector3(-schermxy, schermxy, 0);
+            linksboven = (richting * schermz) + new Vector3(-schermxy, schermxy, 0); //recalculate the screen dimensions using the new FOV
             rechtsboven = (richting * schermz) + new Vector3(schermxy, schermxy, 0);
             linksonder = (richting * schermz) + new Vector3(-schermxy, -schermxy, 0);
         }
 
-        public void MoveCamera(Vector3 xyz)
+        public void MoveCamera(Vector3 xyz) //add a vector to all points
         {
             pos += xyz;
             centrum = pos + (richting*schermz);
@@ -61,7 +57,7 @@ namespace template
 
         }
 
-        public void TurnCamera(Key key)
+        public void TurnCamera(Key key) // turn the camera left right up or down depending on a key press, sadly the screen does not rotate but only moves in a circle
         {
             if (key == Key.Right)
             { centrum += (Right * 0.1f); }
@@ -78,23 +74,7 @@ namespace template
             rechtsboven = (pos + richting*schermz) + (Right/2) + (Up/2);
             linksonder = (pos+ richting*schermz) - (Right/2) - (Up/2);
 
-
-
-
-            //float centrex = pos.X + richting * Math.Sin(hoek);
-
-
-            /*horrichting += (float)(horgraden * Math.PI / 180);
-            verrichting += (float)(vertgraden * Math.PI / 180);
-            richting = Vector3.Normalize( pos + schermz  * new Vector3((float)(Math.Sin(horrichting) * 
-                Math.Cos(verrichting)), (float)(Math.Sin(horrichting) * Math.Sin(verrichting)), (float)(Math.Cos(horrichting))));
-            var u = Vector3.Cross(up, richting);
-            var v = Vector3.Cross(u, richting);
-            var w = new Vector3(pos + (richting * schermz));
-
-            linksboven = new Vector3(w - u - v);
-            rechtsboven = new Vector3(w + u - v);
-            linksonder = new Vector3(w - u + v);*/
+         
 
         }
         

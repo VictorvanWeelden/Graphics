@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OpenTK;
 
 namespace template
@@ -14,9 +10,11 @@ namespace template
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
-        public Vector3 lightPositie = new Vector3(1f, 10f, 5f);
+        //position and color of the lightsource
+        public Vector3 lightPositie = new Vector3(1f, 10f, 5f); 
         public Vector3 lightKleur = new Vector3(100f, 100f, 100f);
 
+        //positions and colors of the primitives
         public Vector3 sphere1Positie = new Vector3(-3f, 0f, 6f);
         public Vector3 sphere2Positie = new Vector3(0f, 0f, 7f);
         public Vector3 sphere3Positie = new Vector3(3f, 0f, 6f);
@@ -26,12 +24,13 @@ namespace template
         public Vector3 kleur4 = new Vector3(0.5f, 0.5f, 0.5f);
         public int radius = 1;
 
-        public float maxintersectDist = 100;
+        public float maxintersectDist = 100; //arbitrary number to make sure intersect distances are not infinite
 
         public List<Primitive> primitieven;
 
         public Scene()
         {
+            //create the light and the primitives and make a list of the primitives
             Light light = new Light(lightPositie, lightKleur);
 
             Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1, 0f));
@@ -47,9 +46,10 @@ namespace template
             Intersection nearestintersection = null;
             foreach (Primitive p in primitieven )
             {
-                Intersection intersection = p.Intersection(ray); // de intersection van de desbetreffende vorm (plane/sphere)
+                Intersection intersection = p.Intersection(ray); // the intersection method of either the sphere or the plane
                 
-                
+                //if there is a valid intersection and it is smaller than the currect nearest intersection (or there is no nearest intersection yet),
+                //it becomes the nearest intersection.
                 if (intersection != null && intersection.distance < maxintersectDist && (nearestintersection == null || intersection.distance < nearestintersection.distance)) // er is een positief en niet oneindig ver snijpunt
                 {
                         

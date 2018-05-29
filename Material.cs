@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK;
+﻿using OpenTK;
 
 namespace template
 {
     public class Material
     {
+        //materials have a color and can be reflective to an arbitrary extent
         public Vector3 kleur;
         public float pMirror = 0f;
 

@@ -13,17 +13,13 @@ namespace template
             positie = p;
             material = m;
         }
-
-        public static float Dot(Vector3 vector1, Vector3 vector2)
-        {
-            return vector1.X * vector2.X + vector1.Y * vector2.Y + vector1.Z * vector2.Z;
-        }
+        
 
         public override Intersection Intersection(Ray ray)
         {
-            //ray.D = ray richting, ray.O = ray origin, ray.T = ray lengte, positie = middelpunt sphere
-            Vector3 c = positie - ray.O; //Code aangepast naar voorbeeld uit hoorcollege
-            float t = Dot(c, ray.D);
+            
+            Vector3 c = positie - ray.O; //Code adapted from lecture slides
+            float t = Vector3.Dot(c, ray.D);
             Vector3 q = c - t * ray.D;
             float p = Vector3.Dot(q, q);
             if (p > Math.Pow(radius, 2)) return null;
