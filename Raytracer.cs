@@ -10,7 +10,7 @@ namespace template
     public class Raytracer
     {
         Vector3 I;
-        public Vector3 cameraPosition = new Vector3(0, 0, 1);
+        public Vector3 cameraPosition;
         public Camera camera;
         Template.Surface screen;
         Scene scene;
@@ -21,8 +21,8 @@ namespace template
         public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
             this.screen = screen;
-            Vector3 cameraRichting = new Vector3(0, 0, -1);
-            camera = new Camera(cameraPosition, cameraRichting);
+            camera = new Camera(cameraPosition);
+        
             
             this.scene = scene;
             Width = width;
@@ -47,13 +47,13 @@ namespace template
                 {
                     //Vector3 richting  = linkerbovenhoek + (i/het aantal pixels in de breedte van het scherm * (rechtsboven - linksboven) ...
                     // ... + (j/ pixels in hoogte van het scherm *(linksonder - linksboven) - camerapositie)
-                    Vector3 richting = (camera.linksboven + (i / camera.width * (camera.rechtsboven - camera.linksboven) + ((Height-j) / camera.height * (camera.linksonder - camera.linksboven)) - cameraPosition));
+                    Vector3 richting = (camera.linksboven + (i / camera.width * (camera.rechtsboven - camera.linksboven) + ((Height-j) / camera.height * (camera.linksonder - camera.linksboven)) - camera.pos));
                     Vector3 richtingnorm = Vector3.Normalize(richting);    
-                    Ray r = new Ray(cameraPosition, richtingnorm);
+                    Ray r = new Ray(camera.pos, richtingnorm);
                     Vector3 color = Trace(r);
                     screen.Plot(i, (int)Height - j, CreateColor(MathHelper.Clamp(color.X, -1, 1), MathHelper.Clamp(color.Y, -1, 1), MathHelper.Clamp(color.Z, -1, 1))); // teken de pixel
 
-                    if (j == Height/2 && i%5 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
+                    if (j == Height/2 && i%10 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
                         eindpunten[i] = new Vector2(I.X, I.Z);
 

@@ -37,18 +37,19 @@ public class Game
 	    public void Tick()
 	    {
             screen.Clear(CreateColor(0, 0, 0));
-            raytracer.Render();
             Debug();
+            raytracer.Render();
+            
         }
 
         public void Debug()
         {
-            screen.Plot(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), 0xffffff);
+            screen.Plot(((int)Xtrans(raytracer.camera.pos.X)), ((int)Ytrans(raytracer.camera.pos.Z)), 0xffffff);
             
             for (int i = 0; i < raytracer.eindpunten.Length; i++)
             {
 
-                screen.Line(((int)Xtrans(raytracer.cameraPosition.X)), ((int)Ytrans(raytracer.cameraPosition.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans((raytracer.eindpunten[i].Y))), 0xff00ff);
+                screen.Line(((int)Xtrans(raytracer.camera.pos.X)), ((int)Ytrans(raytracer.camera.pos.Z)), ((int)Xtrans(raytracer.eindpunten[i].X)), ((int)Ytrans((raytracer.eindpunten[i].Y))), 0xff00ff);
 
             }
             screen.Line((int)Xtrans(raytracer.camera.linksboven.X), (int)Ytrans(raytracer.camera.linksboven.Z), ((int)Xtrans(raytracer.camera.rechtsboven.X)), (int)Ytrans(raytracer.camera.rechtsboven.Z), 0xffffff);
