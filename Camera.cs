@@ -19,9 +19,9 @@ namespace template
         public float verrichting = 0f;
         public Vector3 richting = new Vector3(0,0,1);
         public Vector3 pos;
-        public Vector3 up = new Vector3(0, 1, 0);
+        public Vector3 Up { get { return linksboven - linksonder; }}
         Vector3 centrum;
-        public Vector3 right;
+        public Vector3 Right { get { return rechtsboven - linksboven; } }
 
         public Camera(Vector3 position)
         {
@@ -34,8 +34,6 @@ namespace template
             linksboven = (richting*schermz) + new Vector3(-schermxy,schermxy,0);
             rechtsboven = (richting*schermz) + new Vector3(schermxy,schermxy,0);
             linksonder = (richting*schermz) + new Vector3(-schermxy,-schermxy,0);
-            right = rechtsboven - linksboven;
-            up = linksonder - linksboven;
 
             
         }
@@ -50,8 +48,6 @@ namespace template
             linksboven = (richting * schermz) + new Vector3(-schermxy, schermxy, 0);
             rechtsboven = (richting * schermz) + new Vector3(schermxy, schermxy, 0);
             linksonder = (richting * schermz) + new Vector3(-schermxy, -schermxy, 0);
-            right = rechtsboven - linksboven;
-            up = linksonder - linksboven;
         }
 
         public void MoveCamera(Vector3 xyz)
@@ -62,33 +58,31 @@ namespace template
             linksboven += xyz;
             rechtsboven += xyz;
             linksonder += xyz;
-            //right = rechtsboven - linksboven;
-            //up = linksonder - linksboven;
-            
+
         }
 
         public void TurnCamera(Key key)
         {
             if (key == Key.Right)
-            { centrum += (right * 0.01f); }
+            { centrum += (Right * 0.1f); }
             if (key == Key.Left)
-            { centrum -= (right * 0.01f); }
+            { centrum -= (Right * 0.1f); }
             if (key == Key.Up)
-            { centrum += (up * 0.01f); }
+            { centrum += (Up * 0.1f); }
             if (key == Key.Down)
-            { centrum -= (up * 0.01f); }
+            { centrum -= (Up * 0.1f); }
 
 
             richting = Vector3.Normalize(centrum - pos);
-            linksboven = (richting*schermz) - right + up;
-            rechtsboven = (richting*schermz) + right + up;
-            linksonder = (richting*schermz) - right - up;
-            right = rechtsboven - linksboven;
-            up = linksonder - linksboven;
+            linksboven = (pos + richting*schermz) - (Right/2) + (Up/2);
+            rechtsboven = (pos + richting*schermz) + (Right/2) + (Up/2);
+            linksonder = (pos+ richting*schermz) - (Right/2) - (Up/2);
+
+
 
 
             //float centrex = pos.X + richting * Math.Sin(hoek);
-            
+
 
             /*horrichting += (float)(horgraden * Math.PI / 180);
             verrichting += (float)(vertgraden * Math.PI / 180);

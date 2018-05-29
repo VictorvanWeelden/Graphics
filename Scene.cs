@@ -37,7 +37,7 @@ namespace template
             Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1, 0f));
             Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2, 1f));
             Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3, 0.75f));
-            Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1);
+            Plane plane = new Plane(new Vector3(-5, -1, 10), new Vector3(5, -1, 10), new Vector3(-5, -1, 0), -1);
             primitieven = new List<Primitive> { plane, sphere1, sphere2, sphere3} ;
             
         }
