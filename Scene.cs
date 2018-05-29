@@ -14,14 +14,14 @@ namespace template
         //stores a list of primitives and light sources. It implements a scene-level Intersect
         //method, which loops over the primitives and returns the closest intersection.
 
-        public Vector3 lightPositie = new Vector3(1f, 1f, 1f);
-        public Vector3 lightKleur = new Vector3(30f, 30f, 30f);
+        public Vector3 lightPositie = new Vector3(1f, 10f, 5f);
+        public Vector3 lightKleur = new Vector3(100f, 100f, 100f);
 
-        public Vector3 sphere1Positie = new Vector3(-3f, 0f, 8f);
-        public Vector3 sphere2Positie = new Vector3(0f, 0f, 8f);
-        public Vector3 sphere3Positie = new Vector3(3f, 0f, 8f);
+        public Vector3 sphere1Positie = new Vector3(-3f, 0f, 6f);
+        public Vector3 sphere2Positie = new Vector3(0f, 0f, 7f);
+        public Vector3 sphere3Positie = new Vector3(3f, 0f, 6f);
         public Vector3 kleur1 = new Vector3(0.1f, 1f, 0.1f);
-        public Vector3 kleur2 = new Vector3(1f, 1f, 1f);
+        public Vector3 kleur2 = new Vector3(0.1f, 1f, 1f);
         public Vector3 kleur3 = new Vector3(1f, 0.1f, 0.1f);
         public Vector3 kleur4 = new Vector3(0.5f, 0.5f, 0.5f);
         public int radius = 1;
@@ -34,9 +34,9 @@ namespace template
         {
             Light light = new Light(lightPositie, lightKleur);
 
-            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1));
-            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2));
-            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3));
+            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1, false));
+            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2, true));
+            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3, false));
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1);
             primitieven = new List<Primitive> { plane, sphere1, sphere2, sphere3} ;
             

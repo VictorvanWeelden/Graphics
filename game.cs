@@ -55,10 +55,10 @@ public class Game
             if (state[Key.Q]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0, 0.1f, 0)); } // up
             if (state[Key.E]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0, -0.1f, 0)); } //down
 
-            if (state[Key.Up]) { raytracer.camera.TurnCamera(0,10); }
-            if (state[Key.Down]) { raytracer.camera.TurnCamera(0, -10); }
-            if (state[Key.Left]) { raytracer.camera.TurnCamera(-10, 0); }
-            if (state[Key.Right]) { raytracer.camera.TurnCamera(10,0); }
+            if (state[Key.Up]) { raytracer.camera.TurnCamera(Key.Up); }
+            if (state[Key.Down]) { raytracer.camera.TurnCamera(Key.Down); }
+            if (state[Key.Left]) { raytracer.camera.TurnCamera(Key.Left); }
+            if (state[Key.Right]) { raytracer.camera.TurnCamera(Key.Right); }
 
         }
 

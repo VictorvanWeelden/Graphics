@@ -17,6 +17,7 @@ namespace template
         public float Width;
         public float Height;
         public Vector2[] eindpunten;
+        public int maxRecursie = 5;
 
         public Raytracer(Template.Surface screen, Scene scene, int width, int height)
         {
@@ -71,7 +72,7 @@ namespace template
         {
             Intersection intersection = scene.IntersectMethod(ray);
             if (intersection == null)
-                return Vector3.Zero;
+                return new Vector3(0.5f,0.5f,1f);
            
             Material m = intersection.material;
             
@@ -83,9 +84,37 @@ namespace template
             {
                 return black;
             }*/
+            if(m.isMirror)
+            {
+                Ray r = new Ray(I, Reflect(ray.D, N));
+                
+                return Trace(r) * m.kleur;
+            }
+            if(ShadowRay(I))
+            { return Vector3.Zero; }
+
             return DirectIllumination(I, N) * m.kleur;
+
             
             
+        }
+
+        bool ShadowRay(Vector3 I)
+        {
+            Vector3 p = scene.lightPositie - I;
+            float l = (float)Math.Sqrt((p.X * p.X) + (p.Y * p.Y) + (p.Z * p.Z));
+            Vector3 d = new Vector3(p.X / l, p.Y / l, p.Z / l);
+            Ray shadowRay = new Ray(I + (Vector3.Multiply(d,0.1f)), d);
+            Intersection shadow = scene.IntersectMethod(shadowRay);
+            if (shadow != null && shadow.distance < l)
+                return true;
+            return false;
+            
+        }
+
+        Vector3 Reflect(Vector3 D, Vector3 N)
+        {
+            return D - 2* N * (Vector3.Dot(D, N));
         }
 
         Vector3 DirectIllumination(Vector3 I, Vector3 N)
@@ -100,7 +129,7 @@ namespace template
 
 
             float attenuation = 1 / (dist * dist);
-                //1 / (dist * dist);
+                
             float dot = Vector3.Dot(N, L);
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
         }
