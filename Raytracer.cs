@@ -112,6 +112,10 @@ namespace template
             Vector3 d = new Vector3(p.X / l, p.Y / l, p.Z / l);
             Ray shadowRay = new Ray(I + (Vector3.Multiply(d,0.01f)), d);
             Intersection shadow = scene.IntersectMethod(shadowRay);
+            //if(shadow == null)
+            //{ screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans((shadowRay.D.X * 10)), (int)Ytrans((shadowRay.D.Z * 10)), 0xf0f0f0); }
+            if(shadow != null)
+            { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans(shadow.intersectionPoint.X), (int)Ytrans((shadow.intersectionPoint.Z)), 0xf0f0f0); }
             if (shadow != null && shadow.distance < l)
                 return true;
             return false;
