@@ -31,8 +31,8 @@ namespace template
                 int F = (((int)(2 * (intersectionPoint.X - lb.X)) + ((int)(intersectionPoint.Z - lb.Z)))) & 1;
                 
                 if (F == 1)
-                { return new Intersection(this, -normal, t, new Material(Vector3.Zero, false), intersectionPoint); }
-                return new Intersection(this, -normal, t, new Material(Vector3.One, false), intersectionPoint); 
+                { return new Intersection(this, -normal, t, new Material(Vector3.Zero, 0f), intersectionPoint); }
+                return new Intersection(this, -normal, t, new Material(Vector3.One, 0f), intersectionPoint); 
                 
 
             }

@@ -26,7 +26,7 @@ namespace template
         public Vector3 kleur4 = new Vector3(0.5f, 0.5f, 0.5f);
         public int radius = 1;
 
-        public float maxintersectDist = 1000;
+        public float maxintersectDist = 100;
 
         public List<Primitive> primitieven;
 
@@ -34,9 +34,9 @@ namespace template
         {
             Light light = new Light(lightPositie, lightKleur);
 
-            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1, false));
-            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2, true));
-            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3, false));
+            Sphere sphere1 = new Sphere(radius, sphere1Positie, new Material(kleur1, 0f));
+            Sphere sphere2 = new Sphere(radius, sphere2Positie, new Material(kleur2, 1f));
+            Sphere sphere3 = new Sphere(radius, sphere3Positie, new Material(kleur3, 0.75f));
             Plane plane = new Plane(new Vector3(0,-1,0), new Vector3(10,-1,0), new Vector3(0,-1,10), 1);
             primitieven = new List<Primitive> { plane, sphere1, sphere2, sphere3} ;
             

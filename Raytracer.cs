@@ -58,14 +58,9 @@ namespace template
                     {
                         eindpunten[i] = new Vector2(I.X, I.Z);
 
-                    }
-                    
+                    }                   
                 }             
             }
-           
-           // camera.schermz += 0.001f; aanpassen scherm positie
-          //  P2_P0 = camera.ScreenWidth();
-          //  P1_P0 = camera.ScreenHeight();
         }
         
         Vector3 Trace(Ray ray, int Nrecursion)
@@ -78,33 +73,32 @@ namespace template
            
             Material m = intersection.material;
             
-            I = intersection.intersectionPoint; //ray.O + (t * ray.D); // het snijpunt van de ray
-            
+            I = intersection.intersectionPoint; //ray.O + (t * ray.D); // het snijpunt van de ray           
 
             Vector3 N = intersection.normal; // de normal van primitieve tov de ray
             /*if (I.Z == ray.O.Z) //als er geen snijpunt is teken zwart
             {
                 return black;
             }*/
-            if(m.isMirror)
+
+            if(m.pMirror != 0f) // partly reflective mirror or fully reflective mirror
             {
                 Ray r = new Ray(I, Reflect(ray.D, N));
                 Intersection recursion = scene.IntersectMethod(r);
                 if (recursion == null && I.Y == 0 && r.D.Y == 0)
-                { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans((r.D.X*10)), (int)Ytrans((r.D.Z*10)), 0xffff00); }
-                if(recursion != null && I.Y == 0 && recursion.intersectionPoint.Y == 0)
+                { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans((r.D.X * 10)), (int)Ytrans((r.D.Z * 10)), 0xffff00); }
+                if (recursion != null && I.Y == 0 && recursion.intersectionPoint.Y == 0)
                 { screen.Line((int)Xtrans(I.X), (int)Ytrans(I.Z), (int)Xtrans(recursion.intersectionPoint.X), (int)Ytrans((recursion.intersectionPoint.Z)), 0xffff00); }
 
+                if(m.pMirror == 1f) // full reflective mirror
+                { return Trace(r, Nrecursion + 1) * m.kleur; }
 
-                return Trace(r,Nrecursion+1) * m.kleur;
+                return (1 - m.pMirror) * DirectIllumination(I, N) * m.kleur + m.pMirror * Trace(r, Nrecursion + 1) * m.kleur; // partly reflective mirror
             }
             if(ShadowRay(I))
             { return Vector3.Zero; }
 
-            return DirectIllumination(I, N) * m.kleur;
-
-            
-            
+            return DirectIllumination(I, N) * m.kleur;                        
         }
 
         bool ShadowRay(Vector3 I)
@@ -136,27 +130,11 @@ namespace template
 
             float dist = (float)Math.Sqrt(L.X * L.X + L.Y * L.Y + L.Z * L.Z);
             L *= 1.0f / dist;  //unit vector
-            if(!IsVisible(I, L, dist))
-               return Vector3.Zero;
-
-
-            float attenuation = 1 / (dist * dist);
-                
-            float dot = Vector3.Dot(N, L);
+            float attenuation = 1 / (dist * dist);                
             return scene.lightKleur * Vector3.Dot(N, L) * attenuation;
         }
 
-        bool IsVisible(Vector3 I, Vector3 L, float d)
-        {
-            
-            float c = Vector3.Dot(I, L);
-            if (d * c < 0)  //uit mn hoofd moet dit > 0 zijn maar dat werkt niet
-            {
-                return true;
-                
-            }
-            else return false;                    
-        }
+        
         public float Xtrans(float x)
         {
             return x * (screen.width / 20) + (screen.width * 3 / 4);
