@@ -32,7 +32,7 @@ namespace template
                 
                 if (F == 1)
                 { return new Intersection(this, -normal, t, new Material(Vector3.Zero, 0f), intersectionPoint); }
-                return new Intersection(this, -normal, t, new Material(Vector3.One, 0f), intersectionPoint); 
+                return new Intersection(this, -normal, t, new Material(Vector3.One, 0.5f), intersectionPoint); 
                 
 
             }
