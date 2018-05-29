@@ -29,7 +29,7 @@ namespace template
             linksboven = new Vector3(w - u - v);
             rechtsboven = new Vector3(w + u - v);
             linksonder = new Vector3(w -u + v);
-            TurnCamera(0, 0);
+            //TurnCamera(0, 0);
         }
 
         public void MoveCamera(Vector3 xyz)
@@ -44,7 +44,8 @@ namespace template
         {
             horrichting += (float)(horgraden * Math.PI / 180);
             verrichting += (float)(vertgraden * Math.PI / 180);
-            richting = Vector3.Normalize( pos + schermz  * new Vector3((float)(Math.Sin(horrichting) * Math.Cos(verrichting)), (float)(Math.Sin(horrichting) * Math.Sin(verrichting)), (float)(Math.Cos(horrichting))));
+            richting = Vector3.Normalize( pos + schermz  * new Vector3((float)(Math.Sin(horrichting) * 
+                Math.Cos(verrichting)), (float)(Math.Sin(horrichting) * Math.Sin(verrichting)), (float)(Math.Cos(horrichting))));
             var u = Vector3.Cross(up, richting);
             var v = Vector3.Cross(u, richting);
             var w = new Vector3(pos + (richting * schermz));

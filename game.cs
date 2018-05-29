@@ -2,6 +2,8 @@
 //using System.IO;
 using OpenTK.Graphics.OpenGL;
 using template;
+using OpenTK.Input;
+
 
 namespace Template {
 
@@ -37,9 +39,27 @@ public class Game
 	    public void Tick()
 	    {
             screen.Clear(CreateColor(0, 0, 0));
+            Input();
             Debug();
             raytracer.Render();
             
+        }
+
+        public void Input()
+        {
+            var state = Keyboard.GetState();
+            if (state[Key.W]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0, 0, 0.1f));} //forward
+            if (state[Key.A]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(-0.1f, 0, 0)); } //left
+            if (state[Key.S]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0, 0, -0.1f)); } //backward
+            if (state[Key.D]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0.1f, 0, 0)); } //richt
+            if (state[Key.Q]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0, 0.1f, 0)); } // up
+            if (state[Key.E]) { raytracer.camera.MoveCamera(new OpenTK.Vector3(0, -0.1f, 0)); } //down
+
+            if (state[Key.Up]) { raytracer.camera.TurnCamera(0,10); }
+            if (state[Key.Down]) { raytracer.camera.TurnCamera(0, -10); }
+            if (state[Key.Left]) { raytracer.camera.TurnCamera(-10, 0); }
+            if (state[Key.Right]) { raytracer.camera.TurnCamera(10,0); }
+
         }
 
         public void Debug()
