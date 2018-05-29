@@ -51,7 +51,7 @@ namespace template
                     Vector3 richtingnorm = Vector3.Normalize(richting);    
                     Ray r = new Ray(cameraPosition, richtingnorm);
                     Vector3 color = Trace(r);
-                    screen.Plot(i, (int)Height - j, CreateColor(color.X, color.Y, color.Z)); // teken de pixel
+                    screen.Plot(i, (int)Height - j, CreateColor(MathHelper.Clamp(color.X, -1, 1), MathHelper.Clamp(color.Y, -1, 1), MathHelper.Clamp(color.Z, -1, 1))); // teken de pixel
 
                     if (j == Height/2 && i%5 == 0) // bewaar snijpunten voor de debug in vector2 array eindpunten
                     {
